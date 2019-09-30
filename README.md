@@ -1,5 +1,7 @@
 # Generate CSDN Category List
 
+[![Codacy Badge](https://api.codacy.com/project/badge/Grade/4462adf5e25f4e40a5adf2350e9c5dbe)](https://www.codacy.com?utm_source=github.com&amp;utm_medium=referral&amp;utm_content=yansheng836/GCCL&amp;utm_campaign=Badge_Grade) [![Build Status](https://travis-ci.org/yansheng836/GCCL.svg?branch=master)](https://travis-ci.org/yansheng836/GCCL)  [![codecov](https://codecov.io/gh/yansheng836/GCCL/branch/master/graph/badge.svg)](https://codecov.io/gh/yansheng836/GCCL)   [![BCH compliance](https://bettercodehub.com/edge/badge/yansheng836/GCCL?branch=master)](https://bettercodehub.com/)  [![GitHub LICENSE ](https://img.shields.io/github/license/yansheng836/GCCL)](https://github.com/yansheng836/GCCL/blob/master/LICENSE.txt)  [![GitHub release (latest by date including pre-releases)](https://img.shields.io/github/v/release/yansheng836/GCCL?include_prereleases)](https://github.com/yansheng836/GCCL/releases)
+
 ## 说明
 
 为CSDN博客分类生成目录导航列表。虽然CSDN的分类专栏支持二级分类，但是到目前为止(2019-9-30)它的层级关系并不密切，或者说是没有关系，所以这里就没有进行分层，仅仅是针对分类进行索引。

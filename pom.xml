@@ -67,6 +67,20 @@
 					</execution>
 				</executions>
 			</plugin>
+			
+			<!--测试代码覆盖率 ：Produce Coverage Reports,Add Cobertura plugin. https://github.com/codecov/example-java-maven -->
+            <plugin>
+                <groupId>org.codehaus.mojo</groupId>
+                <artifactId>cobertura-maven-plugin</artifactId>
+                <version>2.7</version>
+                <configuration>
+                    <formats>
+                        <format>html</format>
+                        <format>xml</format>
+                    </formats>
+                    <check />
+                </configuration>
+            </plugin>
 		</plugins>
 	</build>
 
