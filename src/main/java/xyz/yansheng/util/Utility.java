@@ -3,6 +3,7 @@ package xyz.yansheng.util;
 import java.io.IOException;
 import java.util.ArrayList;
 
+import org.jsoup.Connection;
 import org.jsoup.Jsoup;
 import org.jsoup.nodes.Document;
 import org.jsoup.nodes.Element;
@@ -97,7 +98,7 @@ public class Utility {
 
                 // 如果不为空，添加到列表；为空时，直接跳出循环。
                 if (blogs1 != null) {
-                    System.out.println(pageUrl);
+//                    System.out.println(pageUrl);
                     blogs.addAll(blogs1);
                     // 如果该页博客数量少于20，说明没有下一页了。
                     if (blogs1.size() < 20) {
@@ -130,7 +131,18 @@ public class Utility {
         // 获取文档对象
         Document doc = null;
         try {
-            doc = Jsoup.connect(pageUrl).get();
+            Connection con = Jsoup.connect(pageUrl).userAgent(
+                "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/77.0.3865.90 Safari/537.36")
+                .timeout(30000); // 设置连接超时时间
+
+            Connection.Response response = con.execute();
+
+            if (response.statusCode() == 200) {
+                doc = con.get();
+            } else {
+//                System.out.println(response.statusCode());
+                return null;
+            }
         } catch (IOException e) {
             e.printStackTrace();
         }
@@ -149,7 +161,7 @@ public class Utility {
             String title = titleElement.text();
 
             Blog blog = new Blog(href, title);
-            System.out.println(blog);
+//            System.out.println(blog);
             blogs.add(blog);
         }
 

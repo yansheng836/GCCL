@@ -10,8 +10,7 @@ import xyz.yansheng.bean.Category;
 import xyz.yansheng.util.Utility;
 
 /**
- * 生成CSDN博客分类导航目录。思路：从博客主页获取非空的分类专栏列表，然后到具体的分类专栏页面，获取该分类下的所有博客列表。 
- * 最后利用所有的分类信息生成CSDN的markdown编辑器的markdown格式的文件。
+ * 生成CSDN博客分类导航目录。思路：从博客主页获取非空的分类专栏列表，然后到具体的分类专栏页面，获取该分类下的所有博客列表。 最后利用所有的分类信息生成CSDN的markdown编辑器的markdown格式的文件。
  * 
  * @author yansheng
  * @date 2019/09/30
@@ -20,6 +19,8 @@ public class App {
     public static void main(String[] args) {
         // 1.得到用户名
         String username = "weixin_41287260";
+
+        System.out.println("正在爬取数据，请稍候……");
 
         // 2.获取该用户的非空的分类专栏列表
         ArrayList<Category> categoryList = new ArrayList<Category>(20);
@@ -46,11 +47,12 @@ public class App {
 
         // 4.将分类列表写到文件中
         String data = new String(stringBuffer);
-        System.out.println(data);
-        File file = new File("./CSDN博客目录.md");
+        String pathname = "./CSDN博客目录.md";
+        System.out.println(pathname + ":\n" + data);
+        File file = new File(pathname);
         try {
             FileUtils.writeStringToFile(file, data);
-            System.out.println("\n\n生成博客分类导航目录成功！！");
+            System.out.println("\n\n生成博客分类导航目录成功！！文件路径为：" + pathname);
         } catch (IOException e) {
             System.err.println("\n\n生成博客分类导航目录时，发生异常！！");
             e.printStackTrace();

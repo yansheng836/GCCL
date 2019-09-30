@@ -24,6 +24,10 @@
 - [java.lang.NoClassDefFoundError: org/junit/platform/launcher/core/LauncherFactory](https://blog.csdn.net/weixin_41287260/article/details/90578478)
 - [Java日期相关类](https://blog.csdn.net/weixin_41287260/article/details/89410337)
 - [MyEclipse10.7能否使用jdk1.8？](https://blog.csdn.net/weixin_41287260/article/details/89043798)
+- [MyEclipse导入外部项目遇到的各种问题](https://blog.csdn.net/weixin_41287260/article/details/89027685)
+- [Java对象序列化为什么要使用SerialversionUID](https://blog.csdn.net/weixin_41287260/article/details/84956796)
+- [共享一些资源，给需要的人于方便](https://blog.csdn.net/weixin_41287260/article/details/84001388)
+- [详解如何下载JDK和如何配置JDK的环境变量--Windows10](https://blog.csdn.net/weixin_41287260/article/details/83471894)
 
 ### <font color ="green">JavaWeb</font>
 
@@ -31,7 +35,7 @@
 - [HTTP常见状态码汇总，如404,500等](https://blog.csdn.net/weixin_41287260/article/details/99260915)
 - [网页图标favicon.ico介绍及使用](https://blog.csdn.net/weixin_41287260/article/details/97621561)
 - [三种思路实现自定义404页面](https://blog.csdn.net/weixin_41287260/article/details/96030104)
-- [No grammar constraints (DTD or XML schema).....两种解决方法](https://blog.csdn.net/weixin_41287260/article/details/84956583)
+- [No grammar constraints (DTD or XML schema)两种解决方法](https://blog.csdn.net/weixin_41287260/article/details/84956583)
 - [针对web.xml报错:cvc-complex-type.2.4.a: Invalid content was found starting with element 'location'.的解决办法](https://blog.csdn.net/weixin_41287260/article/details/83244549)
 
 ### <font color ="green">MyBatis</font>
@@ -43,6 +47,7 @@
 - [jsoup爬取豆瓣电影top250](https://blog.csdn.net/weixin_41287260/article/details/99354076)
 - [用Jsoup爬取CSDN博客的一些信息](https://blog.csdn.net/weixin_41287260/article/details/99237875)
 - [Jsoup 选择有空格的class](https://blog.csdn.net/weixin_41287260/article/details/99117309)
+- [org.jsoup.HttpStatusException: HTTP error fetching URL. Status=544, URL=](https://blog.csdn.net/weixin_41287260/article/details/101785855)
 
 ### <font color ="green">MySQL</font>
 
@@ -125,6 +130,14 @@
 - [Eclipse中的Project Facets的用途](https://blog.csdn.net/weixin_41287260/article/details/89036556)
 - [MyEclipse导入外部项目遇到的各种问题](https://blog.csdn.net/weixin_41287260/article/details/89027685)
 - [(My)Eclipse出现An error has occurred,See error log for more details 错误的解决办法](https://blog.csdn.net/weixin_41287260/article/details/85421692)
+- [No grammar constraints (DTD or XML schema)两种解决方法](https://blog.csdn.net/weixin_41287260/article/details/84956583)
+- [解决Eclipse和MyEclipse在进行 html,jsp等 页面编辑时，自动格式化变丑的问题](https://blog.csdn.net/weixin_41287260/article/details/84677730)
+- [Eclipse、MyEclipse自动导包设置](https://blog.csdn.net/weixin_41287260/article/details/84674980)
+- [MyEclipse报错：Multiple markers at this line - The type java.io.ObjectInputStream cannot be resolved.](https://blog.csdn.net/weixin_41287260/article/details/84674832)
+- [Eclipse断点调试](https://blog.csdn.net/weixin_41287260/article/details/83934553)
+- [详解如何下载JDK和如何配置JDK的环境变量--Windows10](https://blog.csdn.net/weixin_41287260/article/details/83471894)
+- [MyEclipse编写HTML/JSP时，出现Processing instruction not closed错误提醒的处理方法](https://blog.csdn.net/weixin_41287260/article/details/83344656)
+- [针对web.xml报错:cvc-complex-type.2.4.a: Invalid content was found starting with element 'location'.的解决办法](https://blog.csdn.net/weixin_41287260/article/details/83244549)
 
 ### <font color ="green">Hexo</font>
 
@@ -234,6 +247,11 @@
 - [VMware Workstation Pro 14 15 许可证密钥](https://blog.csdn.net/weixin_41287260/article/details/88927507)
 - [CMD命令行中出现“发生系统错误 5。 拒绝访问。”的解决方法](https://blog.csdn.net/weixin_41287260/article/details/86683604)
 - [Visual Studio2017安装和使用教程（详细）](https://blog.csdn.net/weixin_41287260/article/details/84403984)
+- [共享一些资源，给需要的人于方便](https://blog.csdn.net/weixin_41287260/article/details/84001388)
+- [详解如何下载JDK和如何配置JDK的环境变量--Windows10](https://blog.csdn.net/weixin_41287260/article/details/83471894)
+- [如何快速转载CSDN中的博客](https://blog.csdn.net/weixin_41287260/article/details/83188086)
+- [华为C语言编程规范—注释](https://blog.csdn.net/weixin_41287260/article/details/87868438)
+- [Code:blocks初步尝试](https://blog.csdn.net/weixin_41287260/article/details/87904199)
 
 ### <font color ="green">C语言</font>
 
