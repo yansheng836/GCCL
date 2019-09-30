@@ -3,6 +3,7 @@ package xyz.yansheng.main;
 import java.io.File;
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.Scanner;
 
 import org.apache.commons.io.FileUtils;
 
@@ -18,9 +19,13 @@ import xyz.yansheng.util.Utility;
 public class App {
     public static void main(String[] args) {
         // 1.得到用户名
-        String username = "weixin_41287260";
+        // String username = "weixin_41287260";
+        System.out.print("请输入用户名：");
+        Scanner scanner = new Scanner(System.in);
+        String username = scanner.nextLine();
+        System.out.println("\n"+username+",感谢您使用该工具，即将为你生成CSDN博客目录。\n");
 
-        System.out.println("正在爬取数据，请稍候……");
+        System.out.println("正在爬取数据，请稍候……\n");
 
         // 2.获取该用户的非空的分类专栏列表
         ArrayList<Category> categoryList = new ArrayList<Category>(20);
@@ -52,9 +57,9 @@ public class App {
         File file = new File(pathname);
         try {
             FileUtils.writeStringToFile(file, data);
-            System.out.println("\n\n生成博客分类导航目录成功！！文件路径为：" + pathname);
+            System.out.println("\n生成博客分类导航目录成功！！文件路径为：" + pathname);
         } catch (IOException e) {
-            System.err.println("\n\n生成博客分类导航目录时，发生异常！！");
+            System.err.println("\n生成博客分类导航目录时，发生异常！！");
             e.printStackTrace();
         }
 

@@ -38,3 +38,5 @@ buildNumber.properties
 .settings
 .project
 .classpath
+
+release

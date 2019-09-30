@@ -14,9 +14,23 @@
 
 ## 效果
 
-请看生成的文件 [CSDN博客目录.md](https://github.com/yansheng836/GCCL/blob/master/CSDN博客目录.md)
+请看生成的文件 [CSDN博客目录.md](https://github.com/yansheng836/GCCL/blob/master/CSDN博客目录.md)，或者参考我的CSDN博客目录：[【目录】博客目录 | 先点这里](<https://blog.csdn.net/weixin_41287260/article/details/101735143>)。
 
 ## 使用
+
+### 简单使用
+
+下载最新的发布包：[![GitHub release (latest by date including pre-releases)](https://img.shields.io/github/v/release/yansheng836/GCCL?include_prereleases)](https://github.com/yansheng836/GCCL/releases)
+
+用cmd运行命令：(“*"表示对应版本)
+
+```bash
+java -jar GCCL-*-SNAPSHOT.jar
+```
+
+然后输入用户名，稍等片刻，即可在当前目录生成`CSDN博客目录.md`文件，复制到CSDN的markdown编辑器即可，当然你也可以添加一些说明。
+
+### 开发
 
 1. git clone <https://github.com/yansheng836/GCCL.git>
 2. 以Maven形式导入IDE。
