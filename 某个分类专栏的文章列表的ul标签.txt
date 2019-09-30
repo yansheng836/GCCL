@@ -1,0 +1,27 @@
+<ul class="column_article_list">
+    <li>
+        <a href="https://blog.csdn.net/weixin_41287260/article/details/100177044" target="_blank" rel="noopener">
+            <div class="column_article_title"> <span class="article-type type-1 float-left">原创</span> 
+                 <h2 class="title">命令行运行javac，报错: 编码 GBK 的不可映射字符 (0x9C)</h2> 
+            </div>
+            <div class="column_article_desc">针对“命令行运行javac，报错: 编码 GBK 的不可映射字符 (0x9C)”问题，这篇文章分3部分内容进行了讲解：错误情况示例；原因分析；解决办法。</div>
+            <div class="column_article_data"> <span>2019-08-31 20:59:14</span>  <span>阅读数 60</span>  <span>评论数 0</span> 
+            </div>
+        </a>
+    </li>
+
+
+    <li>
+        <a href="https://blog.csdn.net/weixin_41287260/article/details/100177023" target="_blank" rel="noopener">
+            <div class="column_article_title"> <span class="article-type type-2 float-left">转载</span> 
+                 <h2 class="title">错误: 找不到或无法加载主类 Demo.class 的解决方法</h2> 
+            </div>
+            <div class="column_article_desc">问题：在命令行运行class文件，发生错误: 找不到或无法加载主类 Demo.class 原因：因为java 命令后面的文件不能有后缀名。 解决办法：运行java时候，后面的文件去掉后缀名。</div>
+            <div class="column_article_data"> <span>2019-08-31 20:47:26</span>  <span>阅读数 115</span>  <span>评论数 0</span> 
+            </div>
+        </a>
+    </li>
+
+
+    ………………
+</ul>
