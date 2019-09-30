@@ -71,8 +71,9 @@ public class Utility {
      * @return 分类实体类（blogs不为空）
      */
     public static Category getCategoryBlogs(Category category) {
-        String url = category.getUrl();
+
         ArrayList<Blog> blogs = new ArrayList<Blog>(20);
+        String url = category.getUrl();
 
         // 获取文档对象
         Document doc = null;
@@ -82,8 +83,65 @@ public class Utility {
             e.printStackTrace();
         }
 
+        // 先判断该分类是否有多页
+        // 标签信息，详见：某个分类专栏的文章列表的ul标签 - 多页.txt
+        Element pageBoxElement = doc.selectFirst("div.pagination-box");
+
+        // 非空表示该分类博客数量多，有多页
+        if (pageBoxElement != null) {
+            // 循环每页，直到遇到该页的博客列表空就停止
+            for (int i = 1;; i++) {
+                String pageUrl = url + "/" + i;
+                // 获取该页博客列表，如果没有博客，返回null
+                ArrayList<Blog> blogs1 = getPageBlogs(pageUrl);
+
+                // 如果不为空，添加到列表；为空时，直接跳出循环。
+                if (blogs1 != null) {
+                    System.out.println(pageUrl);
+                    blogs.addAll(blogs1);
+                    // 如果该页博客数量少于20，说明没有下一页了。
+                    if (blogs1.size() < 20) {
+                        break;
+                    }
+                } else {
+                    break;
+                }
+            }
+        } else {
+            // 单页
+            ArrayList<Blog> blogs1 = getPageBlogs(url);
+            blogs.addAll(blogs1);
+        }
+
+        category.setBlogs(blogs);
+        return category;
+    }
+
+    /**
+     * 查找分类的每页的博客列表信息
+     * 
+     * @param pageUrl
+     * @return
+     */
+    public static ArrayList<Blog> getPageBlogs(String pageUrl) {
+
+        ArrayList<Blog> blogs = new ArrayList<Blog>(20);
+
+        // 获取文档对象
+        Document doc = null;
+        try {
+            doc = Jsoup.connect(pageUrl).get();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+
         Element ulElement = doc.selectFirst("ul.column_article_list");
         Elements liElements = ulElement.select("li a");
+        // 如果这个list为空，则说明该页面为空，没有博客。
+        if (liElements.isEmpty()) {
+            return null;
+        }
+
         for (Element liElement : liElements) {
             // 获取每个博客的地址和标题
             String href = liElement.attr("href");
@@ -91,11 +149,11 @@ public class Utility {
             String title = titleElement.text();
 
             Blog blog = new Blog(href, title);
+            System.out.println(blog);
             blogs.add(blog);
         }
 
-        category.setBlogs(blogs);
-        return category;
+        return blogs;
     }
 
 }

@@ -10,7 +10,7 @@ import xyz.yansheng.bean.Category;
 import xyz.yansheng.util.Utility;
 
 /**
- * 生成博客分类导航目录。思路：从博客主页获取非空的分类专栏列表，然后到具体的分类专栏页面，获取该分类下的所有博客列表。 
+ * 生成CSDN博客分类导航目录。思路：从博客主页获取非空的分类专栏列表，然后到具体的分类专栏页面，获取该分类下的所有博客列表。 
  * 最后利用所有的分类信息生成CSDN的markdown编辑器的markdown格式的文件。
  * 
  * @author yansheng
@@ -29,7 +29,7 @@ public class App {
         // }
 
         // 3.获得每个分类专栏的所有文章信息
-        StringBuffer stringBuffer = new StringBuffer();
+        StringBuffer stringBuffer = new StringBuffer(5000);
         // 为CSDN的markdown设置头部信息
         String prefix = "@[TOC](博客目录)\n\n---\n\n";
         stringBuffer.append(prefix);
