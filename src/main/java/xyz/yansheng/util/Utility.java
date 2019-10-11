@@ -1,6 +1,7 @@
 package xyz.yansheng.util;
 
 import java.io.IOException;
+import java.net.URL;
 import java.util.ArrayList;
 
 import org.jsoup.Connection;
@@ -36,14 +37,19 @@ public class Utility {
 
         Document doc = null;
         try {
-            doc = Jsoup.connect(url).get();
+//            doc = Jsoup.connect(url).get();
+            String charsetName = "UTF-8";
+            doc = Jsoup.parse(new URL(url).openStream(),charsetName,url);
         } catch (IOException e) {
             e.printStackTrace();
         }
 
         Element asideElement = doc.selectFirst("aside");
-        Element ulElement = asideElement.selectFirst("ul");
+        Element asideCategoryElement = doc.selectFirst("div#asideCategory");
+//        System.out.println(asideCategoryElement);
+        Element ulElement = asideCategoryElement.selectFirst("ul");
         Elements liElements = ulElement.select("li a");
+//        System.out.println(liElements);
         for (Element liElement : liElements) {
             // 标题
             Element spanElement1 = liElement.selectFirst("span.title.oneline");
