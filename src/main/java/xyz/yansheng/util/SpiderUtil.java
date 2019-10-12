@@ -19,7 +19,7 @@ import xyz.yansheng.bean.Category;
  * @author yansheng
  * @date 2019/09/30
  */
-public class Utility {
+public class SpiderUtil {
 
     /**
      * 获取该用户的非空的分类列表

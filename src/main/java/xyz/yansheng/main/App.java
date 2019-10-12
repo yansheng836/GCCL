@@ -3,12 +3,11 @@ package xyz.yansheng.main;
 import java.io.File;
 import java.io.IOException;
 import java.util.ArrayList;
-import java.util.Scanner;
 
 import org.apache.commons.io.FileUtils;
 
 import xyz.yansheng.bean.Category;
-import xyz.yansheng.util.Utility;
+import xyz.yansheng.util.SpiderUtil;
 
 /**
  * 生成CSDN博客分类导航目录。思路：从博客主页获取非空的分类专栏列表，然后到具体的分类专栏页面，获取该分类下的所有博客列表。 最后利用所有的分类信息生成CSDN的markdown编辑器的markdown格式的文件。
@@ -19,17 +18,23 @@ import xyz.yansheng.util.Utility;
 public class App {
     public static void main(String[] args) {
         // 1.得到用户名
-        // String username = "weixin_41287260";
-        System.out.print("请输入用户名：");
-        Scanner scanner = new Scanner(System.in);
-        String username = scanner.nextLine();
+         String username = "weixin_41287260";
+//        System.out.print("请输入用户名：");
+//        Scanner scanner = new Scanner(System.in);
+//        String username = scanner.nextLine();
         System.out.println("\n"+username+",感谢您使用该工具，即将为你生成CSDN博客目录。\n");
 
         System.out.println("正在爬取数据，请稍候……\n");
 
         // 2.获取该用户的非空的分类专栏列表
         ArrayList<Category> categoryList = new ArrayList<Category>(20);
-        categoryList = Utility.getCategoryList(username);
+        categoryList = SpiderUtil.getCategoryList(username);
+        
+        if (categoryList.isEmpty()) {
+            System.out.println("获取分类专栏失败！");
+            return;
+        }
+        
         // for (Category category : categoryList) {
         // System.out.println(category.toString());
         // }
@@ -42,7 +47,7 @@ public class App {
 
         for (Category category : categoryList) {
             // 获取该分类的所有博客列表
-            category = Utility.getCategoryBlogs(category);
+            category = SpiderUtil.getCategoryBlogs(category);
             // System.out.println(category.getBlogs());
 
             // 将分类的内容转化为markdown类型字符串，添加到stringBuffer

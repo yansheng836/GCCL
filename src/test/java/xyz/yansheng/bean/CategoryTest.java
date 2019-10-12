@@ -4,8 +4,6 @@ import static org.junit.Assert.assertNotNull;
 
 import java.util.ArrayList;
 
-import org.junit.After;
-import org.junit.Before;
 import org.junit.Test;
 
 /**
@@ -13,18 +11,6 @@ import org.junit.Test;
  * @date 2019/09/30
  */
 public class CategoryTest {
-
-    /**
-     * @throws java.lang.Exception
-     */
-    @Before
-    public void setUp() throws Exception {}
-
-    /**
-     * @throws java.lang.Exception
-     */
-    @After
-    public void tearDown() throws Exception {}
 
     /**
      * Test method for {@link xyz.yansheng.bean.Category#Category(java.lang.String, java.lang.String)}.
