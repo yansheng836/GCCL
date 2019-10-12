@@ -39,4 +39,8 @@ buildNumber.properties
 .project
 .classpath
 
+# Test files
+/test/
+
+# GitHub release files
 release
