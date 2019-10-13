@@ -24,8 +24,12 @@ public class App {
         System.out.print("请输入用户名：");
         Scanner scanner = new Scanner(System.in);
         String username = scanner.nextLine();
+        scanner.close();
 
-        System.out.println("\n" + username + ",感谢您使用该工具，即将为你生成CSDN博客目录。\n");
+        // 计时，获取开始时间
+        long startTime = System.currentTimeMillis();
+
+        System.out.println("\n" + username + ",即将为您生成CSDN博客目录。\n");
         System.out.println("1.正在获取分类专栏的信息，请稍候……");
 
         // 2.获取该用户的非空的分类专栏列表
@@ -40,13 +44,13 @@ public class App {
             System.err.println("获取分类专栏失败！");
             return;
         } else {
-            System.out.println("----获取分类专栏成功，共有 " + categoryList.size() + "个非空的分类专栏。");
+            System.out.println("----获取分类专栏成功，共有" + categoryList.size() + "个非空的分类专栏。");
             try {
                 Thread.sleep(4000);
             } catch (InterruptedException e) {
                 e.printStackTrace();
             }
-            System.out.println("2.即将获取分类专栏内的博客信息……");
+            System.out.println("2.正在获取分类专栏内的博客信息……");
         }
 
         // 3.获得每个分类专栏的所有文章信息
@@ -56,19 +60,29 @@ public class App {
             // 判空（对于null,因为这个方法已经进行处理，这里就不处理了），非空添加到列表
             if (blogs != null) {
                 category.setBlogs(blogs);
+            }else {
+                return ;
             }
         }
         System.out.println("----获取分类专栏内的博客信息成功！");
+        try {
+            Thread.sleep(3000);
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        }
+
+        System.out.println("3.即将生成该用户的CSDN博客的导航分类目录文件……");
         try {
             Thread.sleep(4000);
         } catch (InterruptedException e) {
             e.printStackTrace();
         }
-
-        System.out.println("3.即将生成该用户的csdn博客的导航分类目录文件……");
         // 4.将数据写到（符合CSDN的markdown编辑器格式的）文件中
         String pathname = "CSDN博客目录-" + FileUtil.getDateString() + ".md";
         FileUtil.generateCsdnList(pathname, categoryList);
 
+        // 计时，获取结束时间
+        long endTime = System.currentTimeMillis();
+        System.out.println("感谢您使用该工具，此次用时：" + FileUtil.getSecondString(endTime - startTime) + "s，期待下一次的重逢！");
     }
 }

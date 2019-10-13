@@ -59,5 +59,23 @@ public class FileUtilTest {
         assertNotNull(dateString);
         System.out.println(dateString);
     }
+    
+    /**
+     * Test method for {@link xyz.yansheng.util.FileUtil#getSecondString(long)}.
+     */
+    @Test
+    public void testGetSecondString() {
+        long startTime = System.currentTimeMillis(); // 获取开始时间
+
+        try {
+            Thread.sleep(2000);
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        }
+
+        long endTime = System.currentTimeMillis(); // 获取结束时间
+        System.out.println("程序运行时间： " + (endTime - startTime) + "ms");
+        System.out.println("程序运行时间： " + FileUtil.getSecondString(endTime - startTime) + "s");
+    }
 
 }

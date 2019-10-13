@@ -21,8 +21,10 @@ public class FileUtil {
     /**
      * 生成博客目录的列表文件（markdown格式）。遍历分类专栏，将每个分类专栏下的博客进行格式化输出，用StringBuffer进行拼接，最后转为String，写到文件中。
      * 
-     * @param pathname 文件名
-     * @param categoryList 分类专栏列表
+     * @param pathname
+     *            文件名
+     * @param categoryList
+     *            分类专栏列表
      */
     public static void generateCsdnList(String pathname, ArrayList<Category> categoryList) {
 
@@ -43,7 +45,7 @@ public class FileUtil {
         String data = new String(stringBuffer);
         System.out.println("\n详细信息如下:");
         System.out.println("-----------------------------------------------------------------\n" + data);
-        
+
         File file = new File(pathname);
         try {
             // 设置编码为utf8
@@ -66,6 +68,25 @@ public class FileUtil {
         Date date = new Date();
         // 设置时间的显示格式
         String pattern = "yyyy-MM-dd.HH-mm-ss";
+        SimpleDateFormat sdf = new SimpleDateFormat(pattern);
+        String dateString = sdf.format(date);
+
+        return dateString;
+    }
+
+    /**
+     * 将毫秒转为秒，如2000ms转为：02.000s。
+     * 
+     * @param time
+     *            毫秒数
+     * @return 转换的秒的字符串
+     */
+    public static String getSecondString(long time) {
+
+        Date date = new Date(time);
+
+        // 设置时间的显示格式
+        String pattern = "ss.SSS";
         SimpleDateFormat sdf = new SimpleDateFormat(pattern);
         String dateString = sdf.format(date);
 
