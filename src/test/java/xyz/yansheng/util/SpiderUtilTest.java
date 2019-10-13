@@ -67,6 +67,8 @@ public class SpiderUtilTest {
             // 主要是为了测试这个方法
             ArrayList<Blog> blogs = new ArrayList<Blog>(20);
             blogs = SpiderUtil.getCategoryBlogs(category);
+            
+            assertNotNull(blogs);
 
             // 判空（对于null,因为这个方法已经进行处理，这里就不处理了）
             if (blogs != null) {

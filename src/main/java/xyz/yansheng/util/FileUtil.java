@@ -40,7 +40,6 @@ public class FileUtil {
 
         // 3.将分类列表写到文件中
         String data = new String(stringBuffer);
-//        System.out.println("\n\n 详细信息如下："+pathname + ":\n" + data);
         System.out.println("\n详细信息如下:");
         System.out.println("-----------------------------------------------------------------\n" + data);
         File file = new File(pathname);
