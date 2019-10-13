@@ -11,6 +11,8 @@ import org.apache.commons.io.FileUtils;
 import xyz.yansheng.bean.Category;
 
 /**
+ * 文件工具类，作用：将爬取分类专栏的博客的数据以特定的格式写到文件中。
+ * 
  * @author yansheng
  * @date 2019/10/12
  */
@@ -19,8 +21,8 @@ public class FileUtil {
     /**
      * 生成博客目录的列表文件（markdown格式）。遍历分类专栏，将每个分类专栏下的博客进行格式化输出，用StringBuffer进行拼接，最后转为String，写到文件中。
      * 
-     * @param pathname
-     * @param categoryList
+     * @param pathname 文件名
+     * @param categoryList 分类专栏列表
      */
     public static void generateCsdnList(String pathname, ArrayList<Category> categoryList) {
 
@@ -32,7 +34,6 @@ public class FileUtil {
 
         // 2.获得每个分类专栏的所有文章信息
         for (Category category : categoryList) {
-            
             // 将分类的内容转化为markdown类型字符串，添加到stringBuffer
             stringBuffer.append(category.toStringMd());
             stringBuffer.append("\n");
@@ -42,8 +43,10 @@ public class FileUtil {
         String data = new String(stringBuffer);
         System.out.println("\n详细信息如下:");
         System.out.println("-----------------------------------------------------------------\n" + data);
+        
         File file = new File(pathname);
         try {
+            // 设置编码为utf8
             FileUtils.writeStringToFile(file, data, SpiderUtil.charsetName);
             System.out.println("生成博客分类导航目录成功！！文件路径为：" + pathname);
         } catch (IOException e) {
@@ -54,7 +57,7 @@ public class FileUtil {
     }
 
     /**
-     * 生成格式化的时间，用于拼接生成文件的文件名。
+     * 生成当时的格式化的时间，用于拼接生成文件的文件名。
      * 
      * @return 格式化的时间字符串
      */

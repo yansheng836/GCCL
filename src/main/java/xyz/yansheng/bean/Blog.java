@@ -1,7 +1,7 @@
 package xyz.yansheng.bean;
 
 /**
- * 博客实体类，包含该博客的地址，博客标题。
+ * 博客实体类，包含该博客的地址、博客标题。
  * 
  * @author yansheng
  * @date 2019/09/30
@@ -12,16 +12,26 @@ public class Blog {
      * 博客地址
      */
     private String url;
-    
+
     /**
      * 博客标题
      */
     private String title;
 
+    /**
+     * No arg  construction method.
+     */
     public Blog() {}
 
+    /**
+     * All args construction method.
+     * 
+     * @param url
+     *            博客地址
+     * @param title
+     *            博客标题
+     */
     public Blog(String url, String title) {
-        super();
         this.url = url;
         this.title = title;
     }

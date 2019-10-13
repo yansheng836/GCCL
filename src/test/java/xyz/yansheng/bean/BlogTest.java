@@ -11,15 +11,33 @@ import org.junit.Test;
 public class BlogTest {
 
     /**
+     * Test method for {@link xyz.yansheng.bean.Blog#Blog()}.
+     */
+    @Test
+    public void testBlog0() {
+
+        String url = "https://blog.csdn.net/weixin_41287260/article/details/92185040";
+        String title = "阿里巴巴主导的“华山版《Java 开发手册》”简介";
+        Blog blog = new Blog();
+        blog.setUrl(url);
+        blog.setTitle(title);
+        assertNotNull(blog);
+        System.out.println(blog.toString());
+
+    }
+
+    /**
      * Test method for {@link xyz.yansheng.bean.Blog#Blog(java.lang.String, java.lang.String)}.
      */
     @Test
     public void testBlog() {
+
         String url = "https://blog.csdn.net/weixin_41287260/article/details/92185040";
         String title = "阿里巴巴主导的“华山版《Java 开发手册》”简介";
         Blog blog = new Blog(url, title);
         assertNotNull(blog);
         System.out.println(blog.toString());
+
     }
 
 }

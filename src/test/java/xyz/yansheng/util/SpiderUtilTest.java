@@ -2,6 +2,7 @@ package xyz.yansheng.util;
 
 import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertNotNull;
+import static org.junit.Assert.assertNull;
 
 import java.util.ArrayList;
 
@@ -11,6 +12,8 @@ import xyz.yansheng.bean.Blog;
 import xyz.yansheng.bean.Category;
 
 /**
+ * 爬虫工具类，作用：爬取CSDN博客的数据，如分类专栏的信息、分类专栏下的博客信息。
+ * 
  * @author yansheng
  * @date 2019/10/12
  */
@@ -67,7 +70,7 @@ public class SpiderUtilTest {
             // 主要是为了测试这个方法
             ArrayList<Blog> blogs = new ArrayList<Blog>(20);
             blogs = SpiderUtil.getCategoryBlogs(category);
-            
+
             assertNotNull(blogs);
 
             // 判空（对于null,因为这个方法已经进行处理，这里就不处理了）
@@ -101,12 +104,17 @@ public class SpiderUtilTest {
             blogs = SpiderUtil.getPageBlogs(pageUrl);
 
             // 判空（因为SpiderUtil.getPageBlogs(pageUrl)出现问题返回null）
-            assertNotNull(blogs);
+
+            if (pageUrl3.equals(pageUrl)) {
+                assertNull(blogs);
+                continue;
+            } else {
+                assertNotNull(blogs);
+            }
 
             System.out.println("\n该分类专栏的博客数量为：" + blogs.size());
             blogs.forEach((Blog blog) -> System.out.println(blog));
         }
-
     }
 
 }

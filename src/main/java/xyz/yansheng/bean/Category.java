@@ -3,7 +3,7 @@ package xyz.yansheng.bean;
 import java.util.ArrayList;
 
 /**
- * 分类专栏实体类，当做是一种特殊的博客类型，地址为该分类专栏主页地址，多了一个属性为该分类专栏的所有博客列表。
+ * 分类专栏实体类，当做是一种特殊的博客类型（继承Blog）；地址为该分类专栏主页地址，多了一个属性为该分类专栏的所有博客列表。
  * 
  * @author yansheng
  * @date 2019/09/30
@@ -23,9 +23,14 @@ public class Category extends Blog {
         this.blogs = blogs;
     }
 
+    /**
+     * No arg construction method.
+     */
     public Category() {}
 
     /**
+     * All args construction method.
+     * 
      * @param url
      *            该分类专栏主页地址
      * @param title

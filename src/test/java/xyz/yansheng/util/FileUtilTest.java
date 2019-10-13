@@ -48,7 +48,6 @@ public class FileUtilTest {
 
         String pathname = "./test/CSDN博客目录-" + FileUtil.getDateString() + ".md";
         FileUtil.generateCsdnList(pathname, categoryList);
-
     }
 
     /**
