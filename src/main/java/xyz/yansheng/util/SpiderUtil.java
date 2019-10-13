@@ -21,12 +21,14 @@ import xyz.yansheng.bean.Category;
  */
 public class SpiderUtil {
 
+    public static final String charsetName = "UTF-8";
+
     /**
-     * 获取该用户的非空的分类列表
+     * 获取该用户的非空的分类列表。（注意这里要进行异常判断，如用户名输入错误等。后面不在进行处理。）
      * 
      * @param username
      *            用户名
-     * @return 分类专栏列表
+     * @return 分类专栏列表。如果是账号有问题返回null（用object==null判断）,如果是爬取的网页元素有问题返回categoryList（用list.isEmpty()判断）
      */
     public static ArrayList<Category> getCategoryList(String username) {
 
@@ -37,47 +39,56 @@ public class SpiderUtil {
 
         Document doc = null;
         try {
-//            doc = Jsoup.connect(url).get();
-            String charsetName = "UTF-8";
-            doc = Jsoup.parse(new URL(url).openStream(),charsetName,url);
+            doc = Jsoup.parse(new URL(url).openStream(), charsetName, url);
         } catch (IOException e) {
-            e.printStackTrace();
+            System.err.println("访问该用户：" + username + " 主页：" + url + " 失败，请检查用户名是否输入正确！！");
+            return null;
+            // throw new IllegalArgumentException("该用户主页：" + url + " 访问失败，请检查用户名是否输入正确！！");
         }
 
-        Element asideElement = doc.selectFirst("aside");
-        Element asideCategoryElement = doc.selectFirst("div#asideCategory");
-//        System.out.println(asideCategoryElement);
-        Element ulElement = asideCategoryElement.selectFirst("ul");
-        Elements liElements = ulElement.select("li a");
-//        System.out.println(liElements);
-        for (Element liElement : liElements) {
-            // 标题
-            Element spanElement1 = liElement.selectFirst("span.title.oneline");
+        // 为防止关键的页面元素发生变化时，出现问题，这里直接捕获空指针异常
+        try {
+            Element asideCategoryElement = doc.selectFirst("div#asideCategory");
+            Element ulElement = asideCategoryElement.selectFirst("ul");
+            Elements liElements = ulElement.select("li a");
+            for (Element liElement : liElements) {
+                // 标题
+                Element spanElement1 = liElement.selectFirst("span.title.oneline");
 
-            // 博客数量，如果这个不为空，表示该分类有文章，添加该分类到列表
-            Element spanElement2 = liElement.selectFirst("span.count.float-right");
-            if (spanElement2 != null) {
-                String href = liElement.attr("href");
-                String title = spanElement1.text();
+                // 博客数量，如果这个不为空，表示该分类有文章，添加该分类到列表
+                Element spanElement2 = liElement.selectFirst("span.count.float-right");
+                if (spanElement2 != null) {
+                    String href = liElement.attr("href");
+                    String title = spanElement1.text();
 
-                Category category = new Category();
-                category.setUrl(href);
-                category.setTitle(title);
-                categoryList.add(category);
+                    // 如果非空就判断获取的数据是否完整，这里选第一个进行测试
+                    if ("".equals(href) || "".equals(title)) {
+                        System.out.println("在获取‘分类专栏’的信息时发生错误，可能是获取数据的关键页面元素发生了变化，请进行排查。");
+                        continue;
+                    }
+                    // 如果非空，就创建该分类专栏，并将其添加到列表中
+                    Category category = new Category();
+                    category.setUrl(href);
+                    category.setTitle(title);
+                    categoryList.add(category);
+                }
             }
+        } catch (NullPointerException e) {
+            System.err.println("在获取‘分类专栏’的信息时发生空指针异常，可能是获取数据的关键页面元素发生了变化，请进行排查。");
+            return null;
         }
 
         return categoryList;
     }
 
     /**
-     * 获取该分类的所有博客列表
+     * 获取该分类的所有博客列表（1页20篇博客，可能有多页）
      * 
      * @param category
      *            分类实体类（blogs为空）
-     * @return 分类实体类（blogs不为空）
+     * @return 博客列表（出现问题、异常返回null）
      */
-    public static Category getCategoryBlogs(Category category) {
+    public static ArrayList<Blog> getCategoryBlogs(Category category) {
 
         ArrayList<Blog> blogs = new ArrayList<Blog>(20);
         String url = category.getUrl();
@@ -85,16 +96,17 @@ public class SpiderUtil {
         // 获取文档对象
         Document doc = null;
         try {
-            doc = Jsoup.connect(url).get();
+            doc = Jsoup.parse(new URL(url).openStream(), charsetName, url);
         } catch (IOException e) {
-            e.printStackTrace();
+            System.err.println("访问该分类专栏:" + category.getTitle() + " 时，发生错误！");
+            return null;
         }
 
-        // 先判断该分类是否有多页
-        // 标签信息，详见：某个分类专栏的文章列表的ul标签 - 多页.txt
+        // 先判断该分类是否有多页。（标签信息，详见：某个分类专栏的文章列表的ul标签 - 多页.txt）
         Element pageBoxElement = doc.selectFirst("div.pagination-box");
 
         // 非空表示该分类博客数量多，有多页
+        // 但是这里可能会出现问题：当页面元素发生变化时，没有进行处理！！！
         if (pageBoxElement != null) {
             // 循环每页，直到遇到该页的博客列表空就停止
             for (int i = 1;; i++) {
@@ -104,9 +116,9 @@ public class SpiderUtil {
 
                 // 如果不为空，添加到列表；为空时，直接跳出循环。
                 if (blogs1 != null) {
-//                    System.out.println(pageUrl);
+                    // System.out.println(pageUrl);
                     blogs.addAll(blogs1);
-                    // 如果该页博客数量少于20，说明没有下一页了。
+                    // 如果该页博客数量少于20，说明没有下一页了，直接跳出循环。
                     if (blogs1.size() < 20) {
                         break;
                     }
@@ -120,17 +132,20 @@ public class SpiderUtil {
             blogs.addAll(blogs1);
         }
 
-        category.setBlogs(blogs);
-        return category;
+        return blogs;
     }
 
     /**
-     * 查找分类的每页的博客列表信息
+     * 查找分类的每页的博客列表信息（这个方法只爬取单页的数据）
      * 
      * @param pageUrl
-     * @return
+     *            分类专栏的网址（如果有多页，表示某一页的地址）
+     * @return 博客列表（出现问题、异常返回null）
      */
     public static ArrayList<Blog> getPageBlogs(String pageUrl) {
+
+        // 定义：爬取数据出现错误时，返回的错误语句。（因为这种情况比较多，这里进行统一定义）
+        String errorString = "爬取：" + pageUrl + " 时出现问题！可能是关键的页面元素发生了变化，请进行排查。";
 
         ArrayList<Blog> blogs = new ArrayList<Blog>(20);
 
@@ -139,36 +154,49 @@ public class SpiderUtil {
         try {
             Connection con = Jsoup.connect(pageUrl).userAgent(
                 "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/77.0.3865.90 Safari/537.36")
-                .timeout(30000); // 设置连接超时时间
-
+                .timeout(30000);
             Connection.Response response = con.execute();
 
             if (response.statusCode() == 200) {
                 doc = con.get();
             } else {
-//                System.out.println(response.statusCode());
+                System.err.println("爬取：" + pageUrl + " 时出现问题，返回的状态码为：" + response.statusCode());
                 return null;
             }
         } catch (IOException e) {
-            e.printStackTrace();
-        }
-
-        Element ulElement = doc.selectFirst("ul.column_article_list");
-        Elements liElements = ulElement.select("li a");
-        // 如果这个list为空，则说明该页面为空，没有博客。
-        if (liElements.isEmpty()) {
+            System.err.println("爬取：" + pageUrl + " 时出现问题！！！");
             return null;
         }
 
-        for (Element liElement : liElements) {
-            // 获取每个博客的地址和标题
-            String href = liElement.attr("href");
-            Element titleElement = liElement.selectFirst("h2.title");
-            String title = titleElement.text();
+        // 为防止关键的页面元素发生变化时，出现问题，这里直接捕获空指针异常
+        try {
+            Element ulElement = doc.selectFirst("ul.column_article_list");
+            Elements liElements = ulElement.select("li a");
+            // 如果这个list为空，则说明该页面为空，没有博客。
+            if (liElements.isEmpty()) {
+                System.err.println(errorString);
+                return null;
+            }
 
-            Blog blog = new Blog(href, title);
-//            System.out.println(blog);
-            blogs.add(blog);
+            for (Element liElement : liElements) {
+                // 获取每个博客的地址和标题
+                String href = liElement.attr("href");
+                Element titleElement = liElement.selectFirst("h2.title");
+                String title = titleElement.text();
+
+                // 判断获取的数据是否为空字符串
+                if ("".equals(href) || "".equals(title)) {
+                    System.err.println(errorString);
+                    return null;
+                }
+
+                Blog blog = new Blog(href, title);
+                blogs.add(blog);
+            }
+
+        } catch (NullPointerException e) {
+            System.err.println("在获取‘分类专栏’：" + pageUrl + " 的博客的信息时发生空指针异常，可能是获取数据的关键页面元素发生了变化，请进行排查。");
+            return null;
         }
 
         return blogs;
