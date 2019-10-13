@@ -1,6 +1,7 @@
 package xyz.yansheng.main;
 
 import java.util.ArrayList;
+import java.util.Scanner;
 
 import xyz.yansheng.bean.Blog;
 import xyz.yansheng.bean.Category;
@@ -18,11 +19,11 @@ public class App {
     public static void main(String[] args) {
 
         // 1.得到用户名
-        String username = "weixin_41287260";
+        // String username = "weixin_41287260";
 
-        // System.out.print("请输入用户名：");
-        // Scanner scanner = new Scanner(System.in);
-        // String username = scanner.nextLine();
+        System.out.print("请输入用户名：");
+        Scanner scanner = new Scanner(System.in);
+        String username = scanner.nextLine();
 
         System.out.println("\n" + username + ",感谢您使用该工具，即将为你生成CSDN博客目录。\n");
         System.out.println("1.正在获取分类专栏的信息，请稍候……");
@@ -63,7 +64,7 @@ public class App {
         } catch (InterruptedException e) {
             e.printStackTrace();
         }
-        
+
         System.out.println("3.即将生成该用户的csdn博客的导航分类目录文件……");
         // 4.将数据写到（符合CSDN的markdown编辑器格式的）文件中
         String pathname = "CSDN博客目录-" + FileUtil.getDateString() + ".md";

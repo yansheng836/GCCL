@@ -39,14 +39,15 @@ java -jar GCCL-*-SNAPSHOT.jar
 
 <details>
 <summary>
-输出内容如下(点击左边三角形展开)：
+示范如下(点击左边三角形展开)：
 </summary>
 
 ```shell
-java -jar GCCL-1.0.2-SNAPSHOT.jar             
-                                                
-weixin_41287260,感谢您使用该工具，即将为你生成CSDN博客目录。        
-                                                
+java -jar GCCL-1.0.2-SNAPSHOT.jar
+请输入用户名：weixin_41287260
+
+weixin_41287260,感谢您使用该工具，即将为你生成CSDN博客目录。
+                                           
 1.正在获取分类专栏的信息，请稍候……                             
 ----获取分类专栏成功，共有 26个非空的分类专栏。                     
 2.即将获取分类专栏内的博客信息……                              
@@ -84,10 +85,19 @@ weixin_41287260,感谢您使用该工具，即将为你生成CSDN博客目录。
 3. 运行`/GCCL/src/main/java/xyz/yansheng/main`下面的`App`主程序。
 4. 或者按需开发自己的程序。
 
+## Limitation
+
+- 目前只能爬取没有自定义博客域名的博客，博客主页网址形式为：<https://blog.csdn.net/username>，如我的为：<https://blog.csdn.net/weixin_41287260>。
+- 如果分类专栏没有设置在前台显示，则不能爬取该分类专栏的信息。（注：如果没有到 [分类专栏管理处](<https://mp.csdn.net/classify_and_column/list>) 进行设置，新建后默认为显示/可见。）
+
+## CHANGELOG
+
+详见：[CHANGELOG.md](https://github.com/yansheng836/GCCL/blob/master/CHANGELOG.md)。
+
 ## License
 
 This work is licensed under a [MIT](https://github.com/yansheng836/GCCL/blob/master/LICENSE.txt).
 
-## 声明
+## Declaration
 
 - 本项目仅用于学习交流使用，**禁止**进行商业目的的开发、发布、运营等。数据所有权归 <http://www.csdn.net/> 所有。
