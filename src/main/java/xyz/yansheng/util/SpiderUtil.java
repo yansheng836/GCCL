@@ -51,28 +51,35 @@ public class SpiderUtil {
             Element asideCategoryElement = doc.selectFirst("div#asideCategory");
             Element ulElement = asideCategoryElement.selectFirst("ul");
             Elements liElements = ulElement.select("li a");
+            // 统计所有分类专栏一共有多少博客（包含重复的）
+            int num = 0;
             for (Element liElement : liElements) {
                 // 标题
-                Element spanElement1 = liElement.selectFirst("span.title.oneline");
-
+                Element titleElement = liElement.selectFirst("span.title.oneline");
                 // 博客数量，如果这个不为空，表示该分类有文章，添加该分类到列表
-                Element spanElement2 = liElement.selectFirst("span.count.float-right");
-                if (spanElement2 != null) {
+                Element countElement = liElement.selectFirst("span.count.float-right");
+                if (countElement != null) {
+                    // 依次获取分类专栏的网址、标题、博客数量
                     String href = liElement.attr("href");
-                    String title = spanElement1.text();
+                    String title = titleElement.text();
+                    String countString = countElement.text();
+                    Integer count = new Integer(countString.substring(0, countString.length() - 1));
+                    num = num + count;
 
                     // 如果非空就判断获取的数据是否完整，这里选第一个进行测试
-                    if ("".equals(href) || "".equals(title)) {
-                        System.out.println("在获取‘分类专栏’的信息时发生错误，可能是获取数据的关键页面元素发生了变化，请进行排查。");
+                    if ("".equals(href) || "".equals(title) || count == null) {
+                        System.err.println("在获取‘分类专栏’的信息时发生错误，可能是获取数据的关键页面元素发生了变化，请进行排查。");
                         continue;
                     }
                     // 如果非空，就创建该分类专栏，并将其添加到列表中
                     Category category = new Category();
                     category.setUrl(href);
                     category.setTitle(title);
+                    category.setCount(count);
                     categoryList.add(category);
                 }
             }
+            System.out.println("所有分类专栏一共有:" + num + "篇博客（包含重复的）。");
         } catch (NullPointerException e) {
             System.err.println("在获取‘分类专栏’的信息时发生空指针异常，可能是获取数据的关键页面元素发生了变化，请进行排查。");
             return null;
@@ -90,45 +97,29 @@ public class SpiderUtil {
      */
     public static ArrayList<Blog> getCategoryBlogs(Category category) {
 
-        ArrayList<Blog> blogs = new ArrayList<Blog>(20);
+        Integer count = category.getCount();
+        // 求该分类专栏的博客有多少页，一页有20篇博客，如果有21篇，就说明有2页
+        int maxPageCount = 20;
+        int blogPage = count / maxPageCount;
+        if (count % maxPageCount != 0) {
+            blogPage++;
+        }
+        // System.out.println("\n\n该分类专栏的博客页数：" + blogPage);
+
+        ArrayList<Blog> blogs = new ArrayList<Blog>(count);
         String url = category.getUrl();
 
-        // 获取文档对象
-        Document doc = null;
-        try {
-            doc = Jsoup.parse(new URL(url).openStream(), charsetName, url);
-        } catch (IOException e) {
-            System.err.println("访问该分类专栏:" + category.getTitle() + " 时，发生错误！");
-            return null;
-        }
+        // 循环爬取每页的博客信息
+        for (int i = 1; i <= blogPage; i++) {
+            String pageUrl = url + "/" + i;
+            
+            ArrayList<Blog> pageBlogs = new ArrayList<Blog>(maxPageCount);
+            pageBlogs = getPageBlogs(pageUrl);
 
-        // 先判断该分类是否有多页。（标签信息，详见：某个分类专栏的文章列表的ul标签 - 多页.txt）
-        Element pageBoxElement = doc.selectFirst("div.pagination-box");
-
-        // 非空表示该分类博客数量多，有多页
-        // 但是这里可能会出现问题：当页面元素发生变化时，没有进行处理！！！
-        if (pageBoxElement != null) {
-            // 循环每页，直到遇到该页的博客列表空就停止
-            for (int i = 1;; i++) {
-                String pageUrl = url + "/" + i;
-                // 获取该页博客列表，如果没有博客，返回null
-                ArrayList<Blog> blogs1 = getPageBlogs(pageUrl);
-
-                // 如果不为空，添加到列表；为空时，直接跳出循环。
-                if (blogs1 != null) {
-                    blogs.addAll(blogs1);
-                    // 如果该页博客数量少于20，说明没有下一页了，直接跳出循环。
-                    if (blogs1.size() < 20) {
-                        break;
-                    }
-                } else {
-                    break;
-                }
+            // 如果不为空，添加到列表；为空时，直接跳出循环。
+            if (pageBlogs != null) {
+                blogs.addAll(pageBlogs);
             }
-        } else {
-            // 单页
-            ArrayList<Blog> blogs1 = getPageBlogs(url);
-            blogs.addAll(blogs1);
         }
 
         return blogs;
@@ -196,7 +187,8 @@ public class SpiderUtil {
             }
 
         } catch (NullPointerException e) {
-            System.err.println("在获取‘分类专栏’：" + pageUrl + " 的博客的信息时发生空指针异常，可能是获取数据的关键页面元素发生了变化，请进行排查。");
+            System.err
+                .println("在获取‘分类专栏’：" + pageUrl + " 的博客的信息时发生空指针异常，可能是获取数据的关键页面元素发生了变化，请进行排查。");
             return null;
         }
 

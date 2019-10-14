@@ -14,6 +14,7 @@ public class CategoryTest {
 
     private String categoryUrl = "https://blog.csdn.net/weixin_41287260/article/category/8128217";
     private String categoryTitle = "Java基础";
+    private Integer count = 29;
 
     private ArrayList<Blog> blogs = new ArrayList<Blog>(2);
     private String blogUrl = "https://blog.csdn.net/weixin_41287260/article/details/92185040";
@@ -32,6 +33,7 @@ public class CategoryTest {
         Category category = new Category();
         category.setUrl(categoryUrl);
         category.setTitle(categoryTitle);
+        category.setCount(count);
         category.setBlogs(blogs);
 
         assertNotNull(category);
@@ -39,7 +41,8 @@ public class CategoryTest {
     }
 
     /**
-     * Test method for {@link xyz.yansheng.bean.Category#Category(java.lang.String, java.lang.String)}.
+     * Test method for
+     * {@link xyz.yansheng.bean.Category#Category(java.lang.String, java.lang.String)}.
      */
     @Test
     public void testCategory() {
@@ -48,7 +51,7 @@ public class CategoryTest {
         blogs.add(blog);
         blogs.add(blog);
 
-        Category category = new Category(categoryUrl, categoryTitle, blogs);
+        Category category = new Category(categoryUrl, categoryTitle, count, blogs);
         assertNotNull(category);
         System.out.println(category.toString());
 

@@ -26,10 +26,11 @@ public class SpiderUtilTest {
      */
     @Test
     public void testGetCategoryList() {
-        // 第一个用户名正确，其它是错误的。
-        String username1 = "weixin_41287260";
-        String username2 = "weixin_4128";
-        String username3 = "weixin_";
+
+        // 第3个用户名正确，12都错误
+        String username1 = "weixin_";
+        String username2 = "weixin_412872";
+        String username3 = "weixin_41287260";
 
         String[] usernames = {username1, username2, username3};
 
@@ -64,7 +65,7 @@ public class SpiderUtilTest {
         for (Category category : categoryList) {
 
             // 主要是为了测试这个方法
-            ArrayList<Blog> blogs = new ArrayList<Blog>(20);
+            ArrayList<Blog> blogs = new ArrayList<Blog>(category.getCount());
             blogs = SpiderUtil.getCategoryBlogs(category);
 
             assertNotNull(blogs);
@@ -79,7 +80,6 @@ public class SpiderUtilTest {
             } else {
                 fail("获取该分类专栏：" + category.getTitle() + " 的数据失败");
             }
-
         }
 
     }
@@ -104,7 +104,6 @@ public class SpiderUtilTest {
             blogs = SpiderUtil.getPageBlogs(pageUrl);
 
             // 判空（因为SpiderUtil.getPageBlogs(pageUrl)出现问题返回null）
-
             if (pageUrl3.equals(pageUrl)) {
                 assertNull(blogs);
                 continue;
@@ -112,8 +111,9 @@ public class SpiderUtilTest {
                 assertNotNull(blogs);
             }
 
-            System.out.println("\n该分类专栏的博客数量为：" + blogs.size());
+            System.out.println("该分类专栏的博客数量为：" + blogs.size());
             blogs.forEach((Blog blog) -> System.out.println(blog));
+            System.out.println();
         }
     }
 

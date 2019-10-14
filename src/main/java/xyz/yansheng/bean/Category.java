@@ -11,9 +11,22 @@ import java.util.ArrayList;
 public class Category extends Blog {
 
     /**
+     * 该分类专栏的所有博客数量
+     */
+    private Integer count;
+
+    /**
      * 该分类专栏的所有博客列表
      */
     private ArrayList<Blog> blogs;
+
+    public Integer getCount() {
+        return count;
+    }
+
+    public void setCount(Integer count) {
+        this.count = count;
+    }
 
     public ArrayList<Blog> getBlogs() {
         return blogs;
@@ -38,14 +51,16 @@ public class Category extends Blog {
      * @param blogs
      *            该分类专栏的所有博客列表
      */
-    public Category(String url, String title, ArrayList<Blog> blogs) {
+    public Category(String url, String title, Integer count, ArrayList<Blog> blogs) {
         super(url, title);
+        this.count = count;
         this.blogs = blogs;
     }
 
     @Override
     public String toString() {
-        return "Category [url=" + getUrl() + ", title=" + getTitle() + ", blogs=" + blogs + "]";
+        return "Category [url=" + getUrl() + ", title=" + getTitle() + ", count=" + count
+            + ", blogs=" + blogs + "]";
     }
 
     // ### <font color ="green">Spring框架</font>
