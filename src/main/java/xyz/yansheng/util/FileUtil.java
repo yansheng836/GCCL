@@ -53,7 +53,7 @@ public class FileUtil {
             // 设置编码为utf8
             FileUtils.writeStringToFile(file, data, SpiderUtil.charsetName);
         } catch (IOException e) {
-            System.err.println("----生成博客分类导航目录时，发生异常！！");
+            System.err.println("----生成'博客导航分类目录'文件时，发生异常！！");
             return false;
         }
 
@@ -77,7 +77,7 @@ public class FileUtil {
     }
 
     /**
-     * 将毫秒转为秒，如2000ms转为：02.000s。
+     * 将毫秒转为'需要的时间'，取决于毫秒转化后比较接近哪个单位（秒、分钟）。
      * 
      * @param time
      *            毫秒数
@@ -85,14 +85,25 @@ public class FileUtil {
      */
     public static String getSecondString(long time) {
 
+        // 判断时间是否超过1分钟，如果没有超过显示为秒钟，如2000ms转为：02.000s；如果超过显示分钟60000ms转为：01.00m
+        Long oneMinute = 60000L;
+        // 设置时间的显示格式
+        String pattern = null;
+        boolean isMoreThenOneMinute = false;
+        if (time < oneMinute) {
+            pattern = "s.SSS";
+        } else {
+            pattern = "m.ss";
+            isMoreThenOneMinute = true;
+        }
+
         Date date = new Date(time);
 
-        // 设置时间的显示格式
-        String pattern = "ss.SSS";
         SimpleDateFormat sdf = new SimpleDateFormat(pattern);
         String dateString = sdf.format(date);
 
-        return dateString;
+        // return dateString;
+        return !isMoreThenOneMinute ? (dateString + "秒") : (dateString + "分钟");
     }
 
     /**

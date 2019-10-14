@@ -59,6 +59,7 @@ public class FileUtilTest {
      */
     @Test
     public void testGetSecondString() {
+        // 1.测试时间不超过60秒的情况
         long startTime = System.currentTimeMillis(); // 获取开始时间
 
         try {
@@ -69,7 +70,26 @@ public class FileUtilTest {
 
         long endTime = System.currentTimeMillis(); // 获取结束时间
         System.out.println("程序运行时间： " + (endTime - startTime) + "ms");
-        System.out.println("程序运行时间： " + FileUtil.getSecondString(endTime - startTime) + "s");
+        System.out.println("程序运行时间： " + FileUtil.getSecondString(endTime - startTime));
+
+        // 2.测试时间超过60秒的情况
+
+        Long longTime1 = 1L;
+        Long longTime2 = 12L;
+        Long longTime3 = 123L;
+        Long longTime4 = 1234L;
+        Long longTime5 = 12345L;
+        Long longTime6 = 60000L;
+        Long longTime7 = 61234L;
+        Long longTime8 = 123456L;
+        Long longTime9 = 4 * 60 * 1000L;
+        Long longTime10 = 40 * 60 * 1000L;
+        Long[] longs = {longTime1, longTime2, longTime3, longTime4, longTime5, longTime6, longTime7,
+            longTime8, longTime9, longTime10};
+        for (Long longTime : longs) {
+            System.out.println("转换时间： " + longTime + "ms -->" + FileUtil.getSecondString(longTime));
+        }
+
     }
 
     /**

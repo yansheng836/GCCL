@@ -29,7 +29,7 @@ public class SpiderUtilTest {
         // 第一个用户名正确，其它是错误的。
         String username1 = "weixin_41287260";
         String username2 = "weixin_4128";
-        String username3 = "weixin_41287";
+        String username3 = "weixin_";
 
         String[] usernames = {username1, username2, username3};
 
@@ -40,8 +40,9 @@ public class SpiderUtilTest {
             // 1.判断账号是否正确.2.判断列表是否为空。
             if (categoryList == null || categoryList.isEmpty()) {
                 System.out.println("categoryList == null || categoryList.isEmpty()");
-                fail("categoryList == null || categoryList.isEmpty()");
+                continue;
             }
+            assertNotNull(categoryList);
 
             System.out.println("\n----用户： " + username + " 共有" + categoryList.size() + "个非空的分类专栏");
             categoryList.forEach((Category category) -> System.out.println(category.toString()));

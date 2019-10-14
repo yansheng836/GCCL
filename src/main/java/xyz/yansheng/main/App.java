@@ -1,6 +1,9 @@
 package xyz.yansheng.main;
 
 import java.util.ArrayList;
+import java.util.Scanner;
+import java.util.Timer;
+import java.util.TimerTask;
 
 import xyz.yansheng.bean.Blog;
 import xyz.yansheng.bean.Category;
@@ -21,15 +24,26 @@ public class App {
         System.out.println(FileUtil.sayWelcome());
 
         // 1.得到用户名
-         String username = "weixin_41287260";
+//        String username = "weixin_41287260";
 
-//        System.out.print("请输入用户名：");
-//        Scanner scanner = new Scanner(System.in);
-//        String username = scanner.nextLine();
-//        scanner.close();
+         System.out.print("请输入用户名：");
+         Scanner scanner = new Scanner(System.in);
+         String username = scanner.nextLine();
+         scanner.close();
 
         // 计时，获取开始时间
         long startTime = System.currentTimeMillis();
+
+        // 设置计时器，如果5分钟后还不能生成文件，自动停止程序
+        long fiveMinute = 5 * 60 * 1000L;
+        Timer timer = new Timer();
+        timer.schedule(new TimerTask() {
+            @Override
+            public void run() {
+                System.out.println("程序运行时间超过5分钟，已自动停止，请检查网络是否有问题。");
+                System.exit(-1);
+            }
+        }, fiveMinute);
 
         System.out.println("\n" + username + ",即将为您生成CSDN博客目录。\n");
         System.out.println("1.正在获取分类专栏的信息，请稍候……");
@@ -59,11 +73,11 @@ public class App {
         for (Category category : categoryList) {
             // 获取该分类的所有博客列表
             ArrayList<Blog> blogs = SpiderUtil.getCategoryBlogs(category);
-            // 判空（对于null,因为这个方法已经进行处理，这里就不处理了），非空添加到列表
+            // 判空（对于null,直接返回、跳出程序），非空添加到列表
             if (blogs != null) {
                 category.setBlogs(blogs);
             } else {
-                return;
+                continue;
             }
         }
         System.out.println("----获取分类专栏内的博客信息成功！");
@@ -92,8 +106,8 @@ public class App {
 
         // 计时，获取结束时间
         long endTime = System.currentTimeMillis();
-        System.out.println("\n***感谢您使用该工具，此次用时：" + FileUtil.getSecondString(endTime - startTime)
-            + "s，期待下一次的重逢！***");
+        System.out.println("\n**感谢您使用该工具，此次用时：" + FileUtil.getSecondString(endTime - startTime)
+            + "，期待下一次的重逢！**");
         // 打招呼
         System.out.println(FileUtil.sayGoodbye());
     }
