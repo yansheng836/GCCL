@@ -59,7 +59,7 @@ public class Category extends Blog {
 
     @Override
     public String toString() {
-        return "Category [url=" + getUrl() + ", title=" + getTitle() + ", count=" + count
+        return "Category [url=" + getUrl() + ", title=" + getTitle() + ", count=" + getCount()
             + ", blogs=" + blogs + "]";
     }
 

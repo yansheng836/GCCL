@@ -44,14 +44,11 @@ public class FileUtil {
 
         // 3.将分类列表写到文件中
         String data = new String(stringBuffer);
-        // System.out.println("\n详细信息如下:");
-        // System.out.println("-----------------------------------------------------------------\n"
-        // + data);
 
         File file = new File(pathname);
         try {
             // 设置编码为utf8
-            FileUtils.writeStringToFile(file, data, SpiderUtil.charsetName);
+            FileUtils.writeStringToFile(file, data, SpiderUtil.UTF8);
         } catch (IOException e) {
             System.err.println("----生成'博客导航分类目录'文件时，发生异常！！");
             return false;

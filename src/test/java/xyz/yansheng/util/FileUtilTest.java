@@ -59,8 +59,8 @@ public class FileUtilTest {
      */
     @Test
     public void testGetSecondString() {
-        // 1.测试时间不超过60秒的情况
-        long startTime = System.currentTimeMillis(); // 获取开始时间
+        // 1.测试时间不超过60秒的情况 
+        long startTime = System.currentTimeMillis(); 
 
         try {
             Thread.sleep(2000);
@@ -68,7 +68,7 @@ public class FileUtilTest {
             e.printStackTrace();
         }
 
-        long endTime = System.currentTimeMillis(); // 获取结束时间
+        long endTime = System.currentTimeMillis();
         System.out.println("程序运行时间： " + (endTime - startTime) + "ms");
         System.out.println("程序运行时间： " + FileUtil.getSecondString(endTime - startTime));
 

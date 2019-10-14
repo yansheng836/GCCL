@@ -18,7 +18,7 @@ public class AppTest {
     @Test
     public void testMain() {
 
-        // 第1个用户名正确，23都错误
+        // 第3个用户名正确，12都错误
         String username1 = "weixin_";
         String username2 = "weixin_412872";
         String username3 = "weixin_41287260";

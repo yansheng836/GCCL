@@ -21,7 +21,7 @@ import xyz.yansheng.bean.Category;
  */
 public class SpiderUtil {
 
-    public static final String charsetName = "UTF-8";
+    public static final String UTF8 = "UTF-8";
 
     /**
      * 获取该用户的非空的分类列表。（注意这里要进行异常判断，如用户名输入错误等。后面不在进行处理。）
@@ -39,7 +39,7 @@ public class SpiderUtil {
 
         Document doc = null;
         try {
-            doc = Jsoup.parse(new URL(url).openStream(), charsetName, url);
+            doc = Jsoup.parse(new URL(url).openStream(), UTF8, url);
         } catch (IOException e) {
             System.err.println("访问该用户：" + username + " 主页：" + url + " 失败，请检查用户名是否输入正确！！");
             return null;
@@ -79,7 +79,7 @@ public class SpiderUtil {
                     categoryList.add(category);
                 }
             }
-            System.out.println("所有分类专栏一共有:" + num + "篇博客（包含重复的）。");
+            System.out.println("----所有分类专栏一共有:" + num + "篇博客(包含重复的)。");
         } catch (NullPointerException e) {
             System.err.println("在获取‘分类专栏’的信息时发生空指针异常，可能是获取数据的关键页面元素发生了变化，请进行排查。");
             return null;
