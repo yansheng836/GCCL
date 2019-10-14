@@ -19,31 +19,31 @@ import xyz.yansheng.util.SpiderUtil;
  */
 public class App {
 
-    public static void main(String[] args) {
+    public static void main(String[] args) throws InterruptedException {
         // 打招呼
         System.out.println(FileUtil.sayWelcome());
 
         // 1.得到用户名
-//        String username = "weixin_41287260";
+        // String username = "weixin_41287260";
 
-         System.out.print("请输入用户名：");
-         Scanner scanner = new Scanner(System.in);
-         String username = scanner.nextLine();
-         scanner.close();
+        System.out.print("请输入用户名：");
+        Scanner scanner = new Scanner(System.in);
+        String username = scanner.nextLine();
+        scanner.close();
 
         // 计时，获取开始时间
         long startTime = System.currentTimeMillis();
 
-        // 设置计时器，如果5分钟后还不能生成文件，自动停止程序
-        long fiveMinute = 5 * 60 * 1000L;
+        // 设置计时器，如果5分钟后还不能生成文件，自动停止程序。注意后面程序意外终止是要先停止计时器timer.cancel();。
+        long fiveMinutes = 5 * 60 * 1000L;
         Timer timer = new Timer();
         timer.schedule(new TimerTask() {
             @Override
             public void run() {
-                System.out.println("程序运行时间超过5分钟，已自动停止，请检查网络是否有问题。");
+                System.out.println("\n程序运行时间超过5分钟，已自动停止，请检查网络是否有问题。");
                 System.exit(-1);
             }
-        }, fiveMinute);
+        }, fiveMinutes);
 
         System.out.println("\n" + username + ",即将为您生成CSDN博客目录。\n");
         System.out.println("1.正在获取分类专栏的信息，请稍候……");
@@ -54,18 +54,17 @@ public class App {
 
         // 处理出现问题的情况
         if (categoryList == null) {
+            timer.cancel();
             return;
         }
         if (categoryList.isEmpty()) {
             System.err.println("获取分类专栏失败！");
+            timer.cancel();
             return;
         } else {
             System.out.println("----获取分类专栏信息成功，共有" + categoryList.size() + "个非空的分类专栏。");
-            try {
-                Thread.sleep(4000);
-            } catch (InterruptedException e) {
-                e.printStackTrace();
-            }
+            // 休眠几秒
+            Thread.sleep(4000);
             System.out.println("2.正在获取每个分类专栏内的博客信息……");
         }
 
@@ -81,34 +80,35 @@ public class App {
             }
         }
         System.out.println("----获取分类专栏内的博客信息成功！");
-        try {
-            Thread.sleep(3000);
-        } catch (InterruptedException e) {
-            e.printStackTrace();
-        }
+        // 休眠几秒
+        Thread.sleep(3000);
 
-        System.out.println("3.正在生成该用户的'博客导航分类目录'文件……");
-        try {
-            Thread.sleep(4000);
-        } catch (InterruptedException e) {
-            e.printStackTrace();
-        }
+        System.out.println("3.正在生成该用户的‘博客导航分类目录’文件……");
+        // 休眠几秒
+        Thread.sleep(3000);
+        
         // 4.将数据写到（符合CSDN的markdown编辑器格式的）文件中
         String pathname = "CSDN博客目录-" + FileUtil.getDateString() + ".md";
         boolean result = FileUtil.generateCsdnList(pathname, categoryList);
 
         if (result) {
-            System.out.println("----生成'博客导航分类目录'文件成功！！\n文件路径为：" + pathname);
+            System.out.println("----生成‘博客导航分类目录’文件成功！！\n文件路径为：" + pathname);
         } else {
-            System.out.println("----生成'博客导航分类目录'文件失败！！");
+            System.out.println("----生成‘博客导航分类目录’文件失败！！");
+            timer.cancel();
             return;
         }
 
         // 计时，获取结束时间
         long endTime = System.currentTimeMillis();
-        System.out.println("\n**感谢您使用该工具，此次用时：" + FileUtil.getSecondString(endTime - startTime)
-            + "，期待下一次的重逢！**");
+        System.out.println(
+            "\n**感谢您使用该工具,此次用时:" + FileUtil.getSecondString(endTime - startTime) + ",期待下一次的重逢!**");
         // 打招呼
         System.out.println(FileUtil.sayGoodbye());
+        // System.exit(0);
+        // return ;
+        // 程序正常介绍后，需要结束计时器，不然会一直停在那里，直到计时器终止。注意：这里不能用System.exit(0)，这个是直接终止虚拟机，在Maven的测试时，
+        // 测试这个程序时，会被终止jvm，其他程序就测试不了！也不能用return，因为return会跳到程序末尾，但是没有结束程序，还是会等计时器结束才终止程序。
+        timer.cancel();
     }
 }
