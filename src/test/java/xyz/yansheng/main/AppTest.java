@@ -1,6 +1,6 @@
 package xyz.yansheng.main;
 
-import static org.junit.Assert.assertFalse;
+import static org.junit.Assert.fail;
 
 import java.io.ByteArrayInputStream;
 
@@ -29,8 +29,10 @@ public class AppTest {
             System.setIn(new ByteArrayInputStream(username.getBytes()));
             try {
                 App.main(null);
-            } catch (Exception e) {
-                assertFalse(e instanceof NullPointerException);
+            } catch (NullPointerException e) {
+                fail("程序运行错误，出现了空指针异常！！！");
+            } catch (InterruptedException e) {
+                fail("程序运行错误，在使用 Thread.sleep()方法时 出现了中断异常！！！");
             }
         }
 
