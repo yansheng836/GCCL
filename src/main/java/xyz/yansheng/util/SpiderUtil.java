@@ -165,6 +165,7 @@ public class SpiderUtil {
             }
         } catch (IOException e) {
             System.err.println("爬取：" + pageUrl + " 时出现问题！！！");
+            System.err.println("生成的博客目录可能会不完整！！！建议重新生成！！！");
             return null;
         }
 

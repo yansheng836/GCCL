@@ -25,8 +25,9 @@ public class FileUtil {
      *            文件名
      * @param categoryList
      *            分类专栏列表
+     * @return 成功返回true,失败返回false
      */
-    public static void generateCsdnList(String pathname, ArrayList<Category> categoryList) {
+    public static boolean generateCsdnList(String pathname, ArrayList<Category> categoryList) {
 
         // 1.定义一个StringBuffer变量，用于拼接博客的输出信息。
         StringBuffer stringBuffer = new StringBuffer(5000);
@@ -43,19 +44,20 @@ public class FileUtil {
 
         // 3.将分类列表写到文件中
         String data = new String(stringBuffer);
-        System.out.println("\n详细信息如下:");
-        System.out.println("-----------------------------------------------------------------\n" + data);
+        // System.out.println("\n详细信息如下:");
+        // System.out.println("-----------------------------------------------------------------\n"
+        // + data);
 
         File file = new File(pathname);
         try {
             // 设置编码为utf8
             FileUtils.writeStringToFile(file, data, SpiderUtil.charsetName);
-            System.out.println("生成博客分类导航目录成功！！文件路径为：" + pathname);
         } catch (IOException e) {
-            System.err.println("生成博客分类导航目录时，发生异常！！");
-            e.printStackTrace();
+            System.err.println("----生成博客分类导航目录时，发生异常！！");
+            return false;
         }
 
+        return true;
     }
 
     /**
@@ -91,6 +93,44 @@ public class FileUtil {
         String dateString = sdf.format(date);
 
         return dateString;
+    }
+
+    /**
+     * 打印ASCII的Goodbye，用于程序结尾。（来源：http://www.network-science.de/ascii/ ：Font: big Reflection: no
+     * Adjustment: left Stretch: no Width: 80 Text: Goodbye!）
+     * 
+     * @return
+     */
+    public static String sayGoodbye() {
+
+        String goodbye = "  _____                 _ _                _ \n"
+            + " / ____|               | | |              | |\n"
+            + "| |  __  ___   ___   __| | |__  _   _  ___| |\n"
+            + "| | |_ |/ _ \\ / _ \\ / _` | '_ \\| | | |/ _ \\ |\n"
+            + "| |__| | (_) | (_) | (_| | |_) | |_| |  __/_|\n"
+            + " \\_____|\\___/ \\___/ \\__,_|_.__/ \\__, |\\___(_)\n"
+            + "                                 __/ |       \n"
+            + "                                |___/        ";
+
+        return goodbye;
+    }
+
+    /**
+     * 打印ASCII的Welcome，用于程序开头。
+     * 
+     * @return
+     */
+    public static String sayWelcome() {
+
+        String welcome = "__          __  _                          _ \n"
+            + "\\ \\        / / | |                        | |\n"
+            + " \\ \\  /\\  / /__| | ___ ___  _ __ ___   ___| |\n"
+            + "  \\ \\/  \\/ / _ \\ |/ __/ _ \\| '_ ` _ \\ / _ \\ |\n"
+            + "   \\  /\\  /  __/ | (_| (_) | | | | | |  __/_|\n"
+            + "    \\/  \\/ \\___|_|\\___\\___/|_| |_| |_|\\___(_)\n"
+            + "                                             ";
+
+        return welcome;
     }
 
 }

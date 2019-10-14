@@ -1,7 +1,6 @@
 package xyz.yansheng.util;
 
 import static org.junit.Assert.assertNotNull;
-import static org.junit.Assert.fail;
 
 import java.util.ArrayList;
 
@@ -17,37 +16,32 @@ import xyz.yansheng.bean.Category;
 public class FileUtilTest {
 
     /**
-     * Test method for {@link xyz.yansheng.util.FileUtil#generateCsdnList(java.lang.String, java.util.ArrayList)}.
+     * Test method for
+     * {@link xyz.yansheng.util.FileUtil#generateCsdnList(java.lang.String, java.util.ArrayList)}.
      */
     @Test
     public void testGenerateCsdnList() {
 
         String username = "weixin_41287260";
-        System.out.println("\n" + username + ",感谢您使用该工具，即将为你生成CSDN博客目录。\n");
-
-        System.out.println("正在爬取数据，请稍候……\n");
-
         ArrayList<Category> categoryList = new ArrayList<Category>(2);
         // 这里只测试一个分类专栏
         categoryList.add(SpiderUtil.getCategoryList(username).get(0));
 
-        if (categoryList == null || categoryList.isEmpty()) {
-            System.out.println("categoryList == null || categoryList.isEmpty()");
-            fail("categoryList == null || categoryList.isEmpty()");
-        }
-        
         for (Category category : categoryList) {
             ArrayList<Blog> blogs = new ArrayList<Blog>(20);
             blogs = SpiderUtil.getCategoryBlogs(category);
-            if (blogs != null && !blogs.isEmpty()) {
-                category.setBlogs(blogs);
-            } else {
-                fail("获取该分类专栏：" + category.getTitle() + " 的数据失败");
-            }
+            category.setBlogs(blogs);
         }
 
         String pathname = "./test/CSDN博客目录-" + FileUtil.getDateString() + ".md";
-        FileUtil.generateCsdnList(pathname, categoryList);
+        boolean result = FileUtil.generateCsdnList(pathname, categoryList);
+
+        if (result) {
+            System.out.println("----生成博客分类导航目录成功！！\n文件路径为：" + pathname);
+        } else {
+            System.out.println("----生成博客分类导航目录失败！！");
+            return;
+        }
     }
 
     /**
@@ -59,7 +53,7 @@ public class FileUtilTest {
         assertNotNull(dateString);
         System.out.println(dateString);
     }
-    
+
     /**
      * Test method for {@link xyz.yansheng.util.FileUtil#getSecondString(long)}.
      */
@@ -76,6 +70,33 @@ public class FileUtilTest {
         long endTime = System.currentTimeMillis(); // 获取结束时间
         System.out.println("程序运行时间： " + (endTime - startTime) + "ms");
         System.out.println("程序运行时间： " + FileUtil.getSecondString(endTime - startTime) + "s");
+    }
+
+    /**
+     * Test method for {@link xyz.yansheng.util.FileUtil#sayGoodbye()}.
+     */
+    @Test
+    public void testSayGoodbye() {
+
+        String goodbye = FileUtil.sayGoodbye();
+        assertNotNull(goodbye);
+        System.out.println("hello");
+        System.out.println(goodbye);
+        System.out.println("hello");
+
+    }
+
+    /**
+     * Test method for {@link xyz.yansheng.util.FileUtil#sayWelcome()}.
+     */
+    @Test
+    public void testSayWelcome() {
+
+        String welcome = FileUtil.sayWelcome();
+        assertNotNull(welcome);
+        System.out.println("hello");
+        System.out.println(welcome);
+        System.out.println("hello");
     }
 
 }

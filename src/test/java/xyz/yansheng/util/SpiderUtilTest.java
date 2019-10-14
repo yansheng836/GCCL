@@ -1,8 +1,8 @@
 package xyz.yansheng.util;
 
-import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertNotNull;
 import static org.junit.Assert.assertNull;
+import static org.junit.Assert.fail;
 
 import java.util.ArrayList;
 
@@ -37,17 +37,11 @@ public class SpiderUtilTest {
         for (String username : usernames) {
             categoryList = SpiderUtil.getCategoryList(username);
 
-            // 1.判断账号是否正确
-            // assertNotNull(categoryList);
-            if (categoryList == null) {
-                continue;
+            // 1.判断账号是否正确.2.判断列表是否为空。
+            if (categoryList == null || categoryList.isEmpty()) {
+                System.out.println("categoryList == null || categoryList.isEmpty()");
+                fail("categoryList == null || categoryList.isEmpty()");
             }
-
-            // 2.判断列表是否为空。
-            if (categoryList.isEmpty()) {
-                continue;
-            }
-            assertFalse(categoryList.isEmpty());
 
             System.out.println("\n----用户： " + username + " 共有" + categoryList.size() + "个非空的分类专栏");
             categoryList.forEach((Category category) -> System.out.println(category.toString()));
@@ -56,7 +50,8 @@ public class SpiderUtilTest {
     }
 
     /**
-     * Test method for {@link xyz.yansheng.util.SpiderUtil#getCategoryBlogs(xyz.yansheng.bean.Category)}.
+     * Test method for
+     * {@link xyz.yansheng.util.SpiderUtil#getCategoryBlogs(xyz.yansheng.bean.Category)}.
      */
     @Test
     public void testGetCategoryBlogs() {
@@ -74,12 +69,16 @@ public class SpiderUtilTest {
             assertNotNull(blogs);
 
             // 判空（对于null,因为这个方法已经进行处理，这里就不处理了）
-            if (blogs != null) {
+            if (blogs != null && !blogs.isEmpty()) {
                 category.setBlogs(blogs);
 
-                System.out.println("\n分类专栏：" + category.getTitle() + " 有" + category.getBlogs().size() + "篇文章");
+                System.out.println(
+                    "\n分类专栏：" + category.getTitle() + " 有" + category.getBlogs().size() + "篇文章");
                 blogs.forEach((Blog blog) -> System.out.println(blog.toString()));
+            } else {
+                fail("获取该分类专栏：" + category.getTitle() + " 的数据失败");
             }
+
         }
 
     }
