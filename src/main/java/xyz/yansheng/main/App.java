@@ -19,7 +19,7 @@ import xyz.yansheng.util.SpiderUtil;
  */
 public class App {
 
-    public static void main(String[] args) throws InterruptedException {
+    public static void main(String[] args) {
         // 打招呼
         System.out.println(FileUtil.sayWelcome());
 
@@ -63,8 +63,6 @@ public class App {
             return;
         } else {
             System.out.println("----获取分类专栏信息成功，共有" + categoryList.size() + "个非空的分类专栏。");
-            // 休眠几秒
-            Thread.sleep(4000);
             System.out.println("2.正在获取每个分类专栏内的博客信息……");
         }
 
@@ -80,13 +78,8 @@ public class App {
             }
         }
         System.out.println("----获取分类专栏内的博客信息成功！");
-        // 休眠几秒
-        Thread.sleep(3000);
-
         System.out.println("3.正在生成该用户的‘博客导航分类目录’文件……");
-        // 休眠几秒
-        Thread.sleep(3000);
-        
+
         // 4.将数据写到（符合CSDN的markdown编辑器格式的）文件中
         String pathname = "CSDN博客目录-" + FileUtil.getDateString() + ".md";
         boolean result = FileUtil.generateCsdnList(pathname, categoryList);

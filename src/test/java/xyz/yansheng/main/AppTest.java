@@ -47,9 +47,8 @@ public class AppTest {
         String username50 = "wuyeliang";
         String username51 = "coderfix";
 
-        String[] usernames =
-            {username01, username02, username10, username11, username12, username13, username14,
-                username20, username21, username22, username30, username40, username50, username51};
+        String[] usernames = {username10, username11, username12, username13, username14,
+            username20, username21, username22, username30, username40, username50, username51};
 
         for (String username : usernames) {
             // System.setIn(InputStream in) :重新分配“标准”输入流。
@@ -58,8 +57,6 @@ public class AppTest {
                 App.main(null);
             } catch (NullPointerException e) {
                 fail("程序运行错误，出现了空指针异常！！！");
-            } catch (InterruptedException e) {
-                fail("程序运行错误，在使用 Thread.sleep()方法时 出现了中断异常！！！");
             }
         }
 
