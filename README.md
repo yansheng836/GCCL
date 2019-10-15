@@ -1,4 +1,4 @@
-# Generate CSDN Category List
+# Generate CSDN Category List(GCCL)
 
 [![Codacy Badge](https://api.codacy.com/project/badge/Grade/4462adf5e25f4e40a5adf2350e9c5dbe)](https://www.codacy.com?utm_source=github.com&amp;utm_medium=referral&amp;utm_content=yansheng836/GCCL&amp;utm_campaign=Badge_Grade)
 [![Build Status](https://travis-ci.org/yansheng836/GCCL.svg?branch=master)](https://travis-ci.org/yansheng836/GCCL)
@@ -42,7 +42,7 @@
 
 下载最新的发布包：[![GitHub release (latest by date including pre-releases)](https://img.shields.io/github/v/release/yansheng836/GCCL?include_prereleases)](https://github.com/yansheng836/GCCL/releases)
 
-提供脚本：[双击可运行GCCL工具.bat](<https://github.com/yansheng836/GCCL/blob/master/bat/双击可运行GCCL工具.bat>)，可直接运行该工具。
+提供脚本，详见：[运行GCCL工具的脚本](<https://github.com/yansheng836/GCCL/tree/master/运行GCCL工具的脚本>)，可直接运行该工具。
 
 然后输入用户名，稍等片刻，即可在当前目录生成`CSDN博客目录.md`文件，复制到CSDN的markdown编辑器即可，当然你也可以添加一些说明。
 
@@ -56,11 +56,17 @@
 ```shell
 -------------------------------------------------------------------------------
 -----------------------欢迎使用CSDN博客目录生成工具(GCCL)----------------------
-即将使用该工具为您生成“CSDN博客目录”，请按照提示进行操作。
+                          _____   _____  _____  _
+                         / ____| / ____|/ ____|| |
+                        | |  __ | |    | |     | |
+                        | | |_ || |    | |     | |
+                        | |__| || |____| |____ | |____
+                         \_____| \_____|\_____||______|
+.
+该工具可为您生成“CSDN博客导航目录”,使用前请阅读README,然后按照提示进行操作。
 如果在使用过程中遇到问题，可到 https://github.com/yansheng836/GCCL/issues 提问。
 -------------------------------------------------------------------------------
-.
-.
+-------------------------------------------------------------------------------
 ！！！！！！！！！！！！！！！！！声明：！！！！！！！！！！！！！！！！！！！
 该工具仅供学习交流使用，请勿用于商业用途；该工具是完全免费的，不进行任何保证，
 版权归 sheng.yan836@gmail.com 所有。
@@ -98,7 +104,7 @@ weixin_41287260,即将为您生成CSDN博客目录。
                                 |___/        
 ```
 
-效果图：![KprWYd.jpg](https://s2.ax1x.com/2019/10/14/KprWYd.jpg)
+效果图：![效果图](https://s2.ax1x.com/2019/10/15/K9cLex.jpg)
 
 </details>
 
