@@ -36,6 +36,10 @@
 
 请看生成的文件 [CSDN博客目录-2019-10-13.14-15-36.md](<https://github.com/yansheng836/GCCL/blob/master/CSDN博客目录-2019-10-13.14-15-36.md>)，或者参考我的CSDN博客目录：[【目录】博客目录 | 先点这里](<https://blog.csdn.net/weixin_41287260/article/details/101735143>)。
 
+## 测试
+
+对多种情况进行了测试，得出了对应的程序运行时间，详见：[程序测试](<https://github.com/yansheng836/GCCL/blob/master/程序测试>)。
+
 ## 使用
 
 ### 简单使用
