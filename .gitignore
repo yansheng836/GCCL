@@ -44,3 +44,7 @@ buildNumber.properties
 
 # GitHub release files
 release
+
+# IDEA
+.idea/
+*.iml

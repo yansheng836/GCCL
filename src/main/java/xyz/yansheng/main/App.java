@@ -24,12 +24,12 @@ public class App {
         System.out.println(FileUtil.sayWelcome());
 
         // 1.得到用户名
-        String username = "weixin_41287260";
+        // String username = "weixin_41287260";
 
-        // System.out.print("请输入用户名：");
-        // Scanner scanner = new Scanner(System.in);
-        // String username = scanner.nextLine();
-        // scanner.close();
+        System.out.print("请输入用户名：");
+        Scanner scanner = new Scanner(System.in);
+        String username = scanner.nextLine();
+        scanner.close();
 
         // 计时，获取开始时间
         long startTime = System.currentTimeMillis();
