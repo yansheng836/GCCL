@@ -14,7 +14,7 @@ import xyz.yansheng.bean.Blog;
 import xyz.yansheng.bean.Category;
 
 /**
- * 工具类
+ * 爬虫工具类
  * 
  * @author yansheng
  * @date 2019/09/30
@@ -40,6 +40,7 @@ public class SpiderUtil {
         Document doc = null;
         try {
             doc = Jsoup.parse(new URL(url).openStream(), UTF8, url);
+            // System.out.println("doc" + doc);
         } catch (IOException e) {
             System.err.println("访问该用户：" + username + " 主页：" + url + " 失败，请检查用户名是否输入正确！！");
             return null;
@@ -48,22 +49,27 @@ public class SpiderUtil {
 
         // 为防止关键的页面元素发生变化时，出现问题，这里直接捕获空指针异常
         try {
-            Element asideCategoryElement = doc.selectFirst("div#asideCategory");
+            Element asideCategoryElement = doc.selectFirst("div.user-special-column.user-profile-aside-common-box");
             Element ulElement = asideCategoryElement.selectFirst("ul");
-            Elements liElements = ulElement.select("li a");
+            // System.out.println("ulElement" + ulElement);
+            Elements liElements = ulElement.select("li");
             // 统计所有分类专栏一共有多少博客（包含重复的）
             int num = 0;
             for (Element liElement : liElements) {
                 // 标题
-                Element titleElement = liElement.selectFirst("span.title.oneline");
+                Element titleElement = liElement.selectFirst("a span");
                 // 博客数量，如果这个不为空，表示该分类有文章，添加该分类到列表
-                Element countElement = liElement.selectFirst("span.count.float-right");
+                Element countElement = liElement.selectFirst("div.special-column-num");
+                // System.out.println("countElement:" + countElement);
                 if (countElement != null) {
                     // 依次获取分类专栏的网址、标题、博客数量
+                    liElement = liElement.selectFirst("a");
                     String href = liElement.attr("href");
                     String title = titleElement.text();
                     String countString = countElement.text();
-                    Integer count = new Integer(countString.substring(0, countString.length() - 1));
+                    countString = countString.replace("篇","");
+                    Integer count = Integer.parseInt(countString);
+                    // System.out.println("count:" + count);
                     num = num + count;
 
                     // 如果非空就判断获取的数据是否完整，这里选第一个进行测试
@@ -99,6 +105,7 @@ public class SpiderUtil {
 
         Integer count = category.getCount();
         // 求该分类专栏的博客有多少页，一页有20篇博客，如果有21篇，就说明有2页
+        // 2021年7月31日20:50:33更新 没有再按照分页显示，全部一页加载 https://blog.csdn.net/weixin_41287260/category_8128217.html
         int maxPageCount = 20;
         int blogPage = count / maxPageCount;
         if (count % maxPageCount != 0) {
@@ -114,7 +121,8 @@ public class SpiderUtil {
             String pageUrl = url + "/" + i;
             
             ArrayList<Blog> pageBlogs = new ArrayList<Blog>(maxPageCount);
-            pageBlogs = getPageBlogs(pageUrl);
+            // pageBlogs = getPageBlogs(pageUrl);
+            pageBlogs = getPageBlogs(url);
 
             // 如果不为空，添加到列表；为空时，直接跳出循环。
             if (pageBlogs != null) {
@@ -175,6 +183,8 @@ public class SpiderUtil {
                 String href = liElement.attr("href");
                 Element titleElement = liElement.selectFirst("h2.title");
                 String title = titleElement.text();
+                title = title.replace("原创","").replace("转载","")
+                    .replace("翻译","").trim();
 
                 // 判断获取的数据是否为空字符串
                 if ("".equals(href) || "".equals(title)) {
@@ -183,6 +193,7 @@ public class SpiderUtil {
                 }
 
                 Blog blog = new Blog(href, title);
+
                 blogs.add(blog);
             }
 
