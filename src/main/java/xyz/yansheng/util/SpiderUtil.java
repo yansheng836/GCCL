@@ -183,8 +183,8 @@ public class SpiderUtil {
                 String href = liElement.attr("href");
                 Element titleElement = liElement.selectFirst("h2.title");
                 String title = titleElement.text();
-                title = title.replace("原创","").replace("转载","")
-                    .replace("翻译","").trim();
+//                title = title.replace("原创","").replace("转载","")
+//                    .replace("翻译","").trim();
 
                 // 判断获取的数据是否为空字符串
                 if ("".equals(href) || "".equals(title)) {
