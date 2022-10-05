@@ -4,7 +4,7 @@ import java.util.ArrayList;
 
 /**
  * 分类专栏实体类，当做是一种特殊的博客类型（继承Blog）；地址为该分类专栏主页地址，多了一个属性为该分类专栏的所有博客列表。
- * 
+ *
  * @author yansheng
  * @date 2019/09/30
  */
@@ -39,17 +39,15 @@ public class Category extends Blog {
     /**
      * No arg construction method.
      */
-    public Category() {}
+    public Category() {
+    }
 
     /**
      * All args construction method.
-     * 
-     * @param url
-     *            该分类专栏主页地址
-     * @param title
-     *            名称
-     * @param blogs
-     *            该分类专栏的所有博客列表
+     *
+     * @param url   该分类专栏主页地址
+     * @param title 名称
+     * @param blogs 该分类专栏的所有博客列表
      */
     public Category(String url, String title, Integer count, ArrayList<Blog> blogs) {
         super(url, title);
@@ -60,7 +58,7 @@ public class Category extends Blog {
     @Override
     public String toString() {
         return "Category [url=" + getUrl() + ", title=" + getTitle() + ", count=" + getCount()
-            + ", blogs=" + blogs + "]";
+                + ", blogs=" + blogs + "]";
     }
 
     // ### <font color ="green">Spring框架</font>
@@ -70,7 +68,7 @@ public class Category extends Blog {
 
     /**
      * 打印该分类的博客列表信息的markdown字符串
-     * 
+     *
      * @return 该分类的博客列表信息的markdown字符串
      */
     public String toStringBlogs() {
@@ -78,6 +76,8 @@ public class Category extends Blog {
         for (Blog blog : blogs) {
             stringBuffer.append("- [");
             stringBuffer.append(blog.getTitle());
+            // 尝试转换markdown中的超链接，但是发现typora和CSDN中的显示的风格不一致，暂时不进行修改
+//            stringBuffer.append(blog.getTitle().replace("[", "\\[").replace("]", "\\]"));
             stringBuffer.append("](");
             stringBuffer.append(blog.getUrl());
             stringBuffer.append(")\n");
@@ -88,11 +88,12 @@ public class Category extends Blog {
 
     /**
      * 打印该分类的markdown字符串
-     * 
+     *
      * @return 该分类的markdown字符串
      */
     public String toStringMd() {
-        return "### <font color =\"green\">" + getTitle() + "</font>\n\n" + toStringBlogs();
+        String subTitle = "### <a href=\"" + getUrl() + "\"><font color =\"green\">" + getTitle() + " " + getCount() + "</font></a>\n\n";
+        return subTitle + toStringBlogs();
     }
 
 }
