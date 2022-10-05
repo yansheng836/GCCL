@@ -13,7 +13,7 @@ import xyz.yansheng.util.SpiderUtil;
 /**
  * 生成CSDN博客分类导航目录。思路：从博客主页获取非空的分类专栏列表，然后到具体的分类专栏页面，获取该分类下的所有博客列表。
  * 最后利用所有的分类信息生成CSDN的markdown编辑器的markdown格式的文件。
- * 
+ *
  * @author yansheng
  * @date 2019/09/30
  */
@@ -24,7 +24,7 @@ public class App {
         System.out.println(FileUtil.sayWelcome());
 
         // 1.得到用户名
-        // String username = "weixin_41287260";
+//        String username = "weixin_41287260";
 
         System.out.print("请输入用户名：");
         Scanner scanner = new Scanner(System.in);
@@ -71,6 +71,12 @@ public class App {
             // 获取该分类的所有博客列表
             ArrayList<Blog> blogs = SpiderUtil.getCategoryBlogs(category);
             // 判空（对于null,直接返回、跳出程序），非空添加到列表
+
+//            System.out.println("blogs:"+blogs.size());
+//            for (Blog blog:blogs){
+//                System.out.println(blog);
+//            }
+
             if (blogs != null) {
                 category.setBlogs(blogs);
             } else {
@@ -95,7 +101,7 @@ public class App {
         // 计时，获取结束时间
         long endTime = System.currentTimeMillis();
         System.out.println(
-            "\n**感谢您使用该工具,此次用时:" + FileUtil.getSecondString(endTime - startTime) + ",期待下一次的重逢!**");
+                "\n**感谢您使用该工具,此次用时:" + FileUtil.getSecondString(endTime - startTime) + ",期待下一次的重逢!**");
         // 打招呼
         System.out.println(FileUtil.sayGoodbye());
         // System.exit(0);
