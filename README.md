@@ -1,6 +1,6 @@
 # Generate CSDN Category List(GCCL)
 
-[![Codacy Badge](https://api.codacy.com/project/badge/Grade/4462adf5e25f4e40a5adf2350e9c5dbe)](https://www.codacy.com?utm_source=github.com&amp;utm_medium=referral&amp;utm_content=yansheng836/GCCL&amp;utm_campaign=Badge_Grade)
+[![Codacy Badge](https://app.codacy.com/project/badge/Grade/73584fbffb924a42827f373819f7f419)](https://www.codacy.com/gh/yansheng836/GCCL/dashboard?utm_source=github.com&amp;utm_medium=referral&amp;utm_content=yansheng836/GCCL&amp;utm_campaign=Badge_Grade)
 [![Build Status](https://travis-ci.org/yansheng836/GCCL.svg?branch=master)](https://travis-ci.org/yansheng836/GCCL)
 [![codecov](https://codecov.io/gh/yansheng836/GCCL/branch/master/graph/badge.svg)](https://codecov.io/gh/yansheng836/GCCL)
 [![BCH compliance](https://bettercodehub.com/edge/badge/yansheng836/GCCL?branch=master)](https://bettercodehub.com/)
