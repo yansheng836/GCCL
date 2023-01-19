@@ -137,3 +137,8 @@ This work is licensed under a [MIT](https://github.com/yansheng836/GCCL/blob/mas
 ## Declaration
 
 - 本项目仅用于学习交流使用，**禁止**进行商业目的的开发、发布、运营等。数据所有权归 <http://www.csdn.net/> 所有。
+
+## Star History
+
+[![Star History Chart](https://api.star-history.com/svg?repos=yansheng836/GCCL&type=Timeline)](https://star-history.com/#yansheng836/GCCL&Timeline)
+
