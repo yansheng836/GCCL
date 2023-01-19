@@ -1,5 +1,6 @@
 package xyz.yansheng.util;
 
+import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertNotNull;
 
 import java.util.ArrayList;
@@ -60,7 +61,7 @@ public class FileUtilTest {
     @Test
     public void testGetSecondString() {
         // 1.测试时间不超过60秒的情况 
-        long startTime = System.currentTimeMillis(); 
+        long startTime = System.currentTimeMillis();
 
         try {
             Thread.sleep(2000);
@@ -85,7 +86,7 @@ public class FileUtilTest {
         Long longTime9 = 4 * 60 * 1000L;
         Long longTime10 = 40 * 60 * 1000L;
         Long[] longs = {longTime1, longTime2, longTime3, longTime4, longTime5, longTime6, longTime7,
-            longTime8, longTime9, longTime10};
+                longTime8, longTime9, longTime10};
         for (Long longTime : longs) {
             System.out.println("转换时间： " + longTime + "ms -->" + FileUtil.getSecondString(longTime));
         }
@@ -119,4 +120,21 @@ public class FileUtilTest {
         System.out.println("hello");
     }
 
+    /**
+     *
+     */
+    @Test
+    public void testGetFileName() {
+
+//        System.out.println(FileUtil.getFileName("1212\\"));
+//        System.out.println(FileUtil.getFileName("1212/"));
+//        System.out.println(FileUtil.getFileName("1212?"));
+//        System.out.println(FileUtil.getFileName("1212*"));
+        assertEquals("1212-", FileUtil.getFileName("1212\\"));
+        assertEquals("1212-", FileUtil.getFileName("1212/"));
+        assertEquals("1212-", FileUtil.getFileName("1212?"));
+        assertEquals("1212-", FileUtil.getFileName("1212*"));
+        assertEquals("1212\\", FileUtil.getFileName("1212\\"));
+
+    }
 }

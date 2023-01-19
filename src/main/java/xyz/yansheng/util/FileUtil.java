@@ -141,4 +141,25 @@ public class FileUtil {
         return welcome;
     }
 
+
+    /**
+     * 返回一个合规的文件名。(不能包含 ? * / \ < > : " | )
+     *
+     * @return String
+     */
+    public static String getFileName(String filepath) {
+
+        filepath = filepath.replace("?","-");
+        filepath = filepath.replace("*","-");
+        filepath = filepath.replace("/","-");
+        filepath = filepath.replace("\\","-");
+        filepath = filepath.replace("<","-");
+        filepath = filepath.replace(">","-");
+        filepath = filepath.replace(":","-");
+        filepath = filepath.replace("\"","-");
+        filepath = filepath.replace("|","-");
+
+        return filepath;
+    }
+
 }

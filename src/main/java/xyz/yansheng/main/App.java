@@ -87,7 +87,7 @@ public class App {
         System.out.println("3.正在生成该用户的‘博客导航分类目录’文件……");
 
         // 4.将数据写到（符合CSDN的markdown编辑器格式的）文件中
-        String pathname = "CSDN博客目录-" + FileUtil.getDateString() + ".md";
+        String pathname = "CSDN博客目录-" + FileUtil.getFileName(username) + '-' + FileUtil.getDateString() + ".md";
         boolean result = FileUtil.generateCsdnList(pathname, categoryList);
 
         if (result) {
