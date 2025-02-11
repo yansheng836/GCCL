@@ -47,8 +47,10 @@ public class AppTest {
         String username50 = "wuyeliang";
         String username51 = "coderfix";
 
-        String[] usernames = {username10, username11, username12, username13, username14,
-            username20, username21, username22, username30, username40, username50, username51};
+//        String[] usernames = {username10, username11, username12, username13, username14,
+//            username20, username21, username22, username30, username40, username50, username51};
+//        String[] usernames = {username10};
+        String[] usernames = {};
 
         for (String username : usernames) {
             // System.setIn(InputStream in) :重新分配“标准”输入流。

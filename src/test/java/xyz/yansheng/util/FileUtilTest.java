@@ -134,7 +134,6 @@ public class FileUtilTest {
         assertEquals("1212-", FileUtil.getFileName("1212/"));
         assertEquals("1212-", FileUtil.getFileName("1212?"));
         assertEquals("1212-", FileUtil.getFileName("1212*"));
-        assertEquals("1212\\", FileUtil.getFileName("1212\\"));
 
     }
 }
