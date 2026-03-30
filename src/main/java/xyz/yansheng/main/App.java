@@ -34,8 +34,8 @@ public class App {
         // 计时，获取开始时间
         long startTime = System.currentTimeMillis();
 
-        // 设置计时器，如果5分钟后还不能生成文件，自动停止程序。注意后面程序意外终止是要先停止计时器timer.cancel();。
-        long fiveMinutes = 5 * 60 * 1000L;
+        // 设置计时器，如果n分钟后还不能生成文件，自动停止程序。注意后面程序意外终止是要先停止计时器timer.cancel();。
+        long fiveMinutes = 30 * 60 * 1000L;
         Timer timer = new Timer();
         timer.schedule(new TimerTask() {
             @Override

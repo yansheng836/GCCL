@@ -3,6 +3,8 @@ package xyz.yansheng.util;
 import java.io.IOException;
 import java.net.URL;
 import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.Map;
 
 import org.jsoup.Connection;
 import org.jsoup.Jsoup;
@@ -39,10 +41,12 @@ public class SpiderUtil {
 
         Document doc = null;
         try {
+//            .timeout(60000).ignoreContentType(true).ignoreHttpErrors(true)
             doc = Jsoup.parse(new URL(url).openStream(), UTF8, url);
             // System.out.println("doc" + doc);
         } catch (IOException e) {
             System.err.println("访问该用户：" + username + " 主页：" + url + " 失败，请检查用户名是否输入正确！！");
+            System.err.println(e);
             return null;
             // throw new IllegalArgumentException("该用户主页：" + url + " 访问失败，请检查用户名是否输入正确！！");
         }
@@ -110,7 +114,7 @@ public class SpiderUtil {
         if (count % PER_PAGE_COUNT != 0) {
             blogPage++;
         }
-        System.out.println("----专栏:【" + category.getTitle()+"】的文章数量为:" + count);
+        System.out.println("----专栏:【" + category.getTitle() + "】的文章数量为:" + count);
         // System.out.println("\n\n该分类专栏的博客页数：" + blogPage);
 
         ArrayList<Blog> blogs = new ArrayList<Blog>(count);
@@ -148,10 +152,22 @@ public class SpiderUtil {
 
         // 获取文档对象
         Document doc = null;
+        Map<String, String> headerMap = new HashMap<>();
+        headerMap.put("Accept", "text/html,application/xhtml+xml,application/xml;q=0.9,image/avif,image/webp,image/apng,*/*;q=0.8,application/signed-exchange;v=b3;q=0.7");
+        headerMap.put("accept-encoding", "gzip, deflate, br, zstd");
+        headerMap.put("accept-language", "zh-CN,zh;q=0.9,en;q=0.8");
+        headerMap.put("cache-control", "no-cache");
+        headerMap.put("connection", "keep-alive");
+        headerMap.put("user-agent", "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/139.0.0.0 Safari/537.36");
+//        headerMap.put("cookie", "UN=weixin_41287260;");
+        headerMap.put("cookie", "c_ins_fpage=/index.html; c_ins_um=-; uuid_tt_dd=10_30742962830-1747382326056-834590; Hm_lvt_6bcd52f51e9b3dce32bec4a3997715ac=1747619437,1747704494,1747789407; _clck=12hqmq9%7C2%7Cfw3%7C0%7C1965; ins_first_time=1755154216033;");
+        headerMap.put("host", "blog.csdn.net");
+        headerMap.put("pragma", "no-cache");
+        headerMap.put("referer", "https://blog.csdn.net");
+        headerMap.put("sec-ch-ua", "\"Not;A=Brand\";v=\"99\", \"Google Chrome\";v=\"139\", \"Chromium\";v=\"139\"");
         try {
-            Connection con = Jsoup.connect(pageUrl).userAgent(
-                    "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/77.0.3865.90 Safari/537.36")
-                    .timeout(30000);
+//            timeout是毫秒
+            Connection con = Jsoup.connect(pageUrl).timeout(60000).headers(headerMap).ignoreContentType(true).ignoreHttpErrors(true);
             Connection.Response response = con.execute();
 
             int successCode = 200;
@@ -163,6 +179,7 @@ public class SpiderUtil {
             }
         } catch (IOException e) {
             System.err.println("爬取：" + pageUrl + " 时出现问题！！！");
+            System.err.println(e);
             System.err.println("生成的博客目录可能会不完整！！！建议重新生成！！！");
             return null;
         }
@@ -173,7 +190,9 @@ public class SpiderUtil {
             Elements liElements = ulElement.select("li a");
             // 如果这个list为空，则说明该页面为空，没有博客。
             if (liElements.isEmpty()) {
+                System.err.println("liElements.isEmpty()");
                 System.err.println(errorString);
+
                 return null;
             }
 
@@ -187,6 +206,7 @@ public class SpiderUtil {
 
                 // 判断获取的数据是否为空字符串
                 if ("".equals(href) || "".equals(title)) {
+                    System.err.println("\"\".equals(href) || \"\".equals(title)");
                     System.err.println(errorString);
                     return null;
                 }
